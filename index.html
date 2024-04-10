@@ -9,24 +9,24 @@
         <script defer src="js/alpine.js"></script>
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body x-data="avoc.data()">
+    <body x-data="{ screens: avoc.getScreens() }">
         <nav class="container">
+            <ul><li><strong>Avoc</strong></li></ul>
             <ul>
-              <li><strong>Avoc</strong></li>
-            </ul>
-            <ul>
-              <li><a href="#">Link #1</a></li>
-              <li><a href="#">Link #2</a></li>
+                <li>
+                    <select x-model="screens.active" x-on:change="screens.active = $event.target.value">
+                        <template x-for="i in screens.max">
+                            <option x-text="i + (i > 1 ? ' screens' : ' screen')" :value="i" :selected="i == screens.active"></option>
+                        </template>
+                    </select>
+                </li>
             </ul>
         </nav>
         <main>
-            <div class="grid-area" rows="3">
-                <div class="area1">Area 1</div>
-                <div class="area2">Area 2</div>
-                <div class="area3">Area 3</div>
-                <div class="area4">Area 4</div>
-                <div class="area5">Area 5</div>
-                <div class="area6">Area 6</div>
+            <div class="grid-area" :screens="screens.active">
+                <template x-for="i in screens.max">
+                    <div :class="'screen' + i" x-text="'Screen ' + i"></div>
+                </template>
             </div>
         </main>
     </body>

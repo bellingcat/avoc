@@ -1,10 +1,13 @@
 export default class Avoc {
 
     constructor() {
-        
+        this.screens = {
+            max: 7,
+            active: 6,
+        }
     }
 
-    data() {
-        return {  }
+    getScreens() {
+        return this.screens
     }
 }
