@@ -4,28 +4,28 @@
         <title>Avoc</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="color-scheme" content="light dark" />
-        <script type="module" src="app.js"></script>
-        <script defer src="js/alpine.js"></script>
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/app.css" />
+        <script data-main="js/app.js" src="js/libs/require.js"></script>
     </head>
-    <body x-data="{ screens: avoc.getScreens() }">
-        <nav class="container">
+    <body x-data="{ monitors: avoc.settings.monitors }">
+        <nav>
             <ul><li><strong>Avoc</strong></li></ul>
             <ul>
+                <template x-if="avoc.settings.canChangeMonitors()">
                 <li>
-                    <select x-model="screens.active" x-on:change="screens.active = $event.target.value">
-                        <template x-for="i in screens.max">
-                            <option x-text="i + (i > 1 ? ' screens' : ' screen')" :value="i" :selected="i == screens.active"></option>
+                    <select x-on:change="monitors.setActive($event.target.value)">
+                        <template x-for="i in monitors.max">
+                            <option x-text="i + (i > 1 ? ' monitors' : ' monitor')" :value="i" :selected="i == monitors.active"></option>
                         </template>
                     </select>
                 </li>
+                </template>
             </ul>
         </nav>
         <main>
-            <div class="grid-area" :screens="screens.active">
-                <template x-for="i in screens.max">
-                    <div :class="'screen' + i" x-text="'Screen ' + i"></div>
+            <div class="grid-area" :screens="monitors.active">
+                <template x-for="i in monitors.max">
+                    <div :class="'screen' + i" :id="'screen' + i" x-text="'Monitor ' + i"></div>
                 </template>
             </div>
         </main>

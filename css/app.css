@@ -9,10 +9,25 @@ main {
 
 nav {
     height: 8vh;
+    max-width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.screen1::after {
+  content: ".";
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  padding: 5px;
+  font-size: 0px;
+  border-radius: 16px;
+  border: 3px solid #F44336;
+  border-style: groove;
 }
 
 /* Debug */
-div.grid-area > div { background-color:hsla(224, 100%, 65%, 0.5); border: 1px dashed; padding: 5px; }
+/*div.grid-area > div { background-color:hsla(224, 100%, 65%, 0.5); border: 1px dashed; padding: 5px; }*/
 
 /* Customize Pico */
 @media (min-width: 576px) {
