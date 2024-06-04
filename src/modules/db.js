@@ -1,3 +1,6 @@
+/**
+ * Provides an interface with ImmortalDB
+ */
 define('module/db', ['lib/immortal-db'], function(Immortal) {
     return {
         set: function(key, value) {

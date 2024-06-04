@@ -1,3 +1,6 @@
+/**
+ * Settings behavior.
+ */
 define('module/settings', ['module/db'], function(db) {
     //@TODO monitors to be deprecated, simplify logic
     return {

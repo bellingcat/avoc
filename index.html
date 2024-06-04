@@ -5,13 +5,25 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="css/app.css" />
-        <script data-main="js/app.js" src="js/libs/require.js"></script>
+        <script data-main="src/app.js" src="src/libs/require.js"></script>
     </head>
-    <body x-data="{ monitors: avoc.settings.monitors }">
+    <body x-data="{ monitors: main.settings.monitors, countries: main.countries }">
         <nav>
             <ul><li><strong>Avoc</strong></li></ul>
             <ul>
-                <template x-if="avoc.settings.canChangeMonitors()">
+                <li>
+                    <form>
+                        <select name="country" aria-label="Navigate to Country" x-on:change="main.goToCoords($event.target.value)">
+                            <option selected value="">
+                                Choose country...
+                            </option>
+                            <template x-for="country in countries">
+                                <option x-text="country.name" :value="country.coords"></option>
+                            </template>
+                          </select>
+                     </form>
+                </li>
+                <template x-if="main.settings.canChangeMonitors()">
                 <li>
                     <select x-on:change="monitors.setActive($event.target.value)">
                         <template x-for="i in monitors.max">
