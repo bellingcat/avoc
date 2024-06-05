@@ -8,7 +8,7 @@
         <script src="configuration.js"></script>
         <script data-main="src/app.js" src="src/libs/require.js"></script>
     </head>
-    <body x-data="{ monitors: main.settings.monitors, countries: main.countries }">
+    <body x-data="{ countries: main.countries }">
         <nav>
             <ul><li><strong>Avoc</strong></li></ul>
             <ul>
@@ -24,22 +24,16 @@
                           </select>
                      </form>
                 </li>
-                <template x-if="main.settings.canChangeMonitors()">
-                <li>
-                    <select x-on:change="monitors.setActive($event.target.value)">
-                        <template x-for="i in monitors.max">
-                            <option x-text="i + (i > 1 ? ' monitors' : ' monitor')" :value="i" :selected="i == monitors.active"></option>
-                        </template>
-                    </select>
-                </li>
-                </template>
             </ul>
         </nav>
         <main>
-            <div class="grid-area" :screens="monitors.active">
-                <template x-for="i in monitors.max">
-                    <div :class="'screen' + i" :id="'screen' + i" x-text="'Monitor ' + i"></div>
-                </template>
+            <div class="grid-area" screens="6">
+                <div class="screen1" id="screen1"></div>
+                <div class="screen2" id="screen2"></div>
+                <div class="screen3" id="screen3"></div>
+                <div class="screen4" id="screen4"></div>
+                <div class="screen5" id="screen5"></div>
+                <div class="screen6" id="screen6"></div>
             </div>
         </main>
     </body>
