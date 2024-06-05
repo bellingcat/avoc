@@ -22,9 +22,15 @@ if(setupCheck()) {
             services: "services"
         },
         config: {
+            "core/main": {
+                defaultCoords: { lat: 50.84, lng: 4.34 }
+            },
             "maps/google": {
                 apiKey: self.configuration.apiKeys.google
-            }
+            },
+            "maps/mapbox": {
+                apiKey: self.configuration.apiKeys.mapbox
+            },
         }
     });
     
@@ -32,13 +38,13 @@ if(setupCheck()) {
      * Launching the app
      */
     requirejs(["core/main"], function(main) {
+        self.main = main; // Workaround for Alpine's reference issue
+        
+        requirejs(["libs/alpine"]);
+
         (async () => {
             await main.init();
         })();
-        
-        self.main = main; // Workaround for Alpine's reference issue
-    
-        requirejs(["libs/alpine"]);
     });
 } else {
     alert("Please setup Avoc by visiting the configuration.js file");

@@ -1,5 +1,6 @@
-@import url('pico.css');
-@import url('screens.css');
+@import 'pico.css';
+@import 'screens.css';
+@import 'mapbox-gl.css';
 
 /* Template */
 main {
@@ -21,6 +22,8 @@ nav {
   left: calc(50% - 8px);
   padding: 5px;
   font-size: 0px;
+  width: 16px;
+  height: 16px;
   border-radius: 16px;
   border: 3px solid #F44336;
   border-style: groove;
@@ -30,6 +33,10 @@ nav {
 /*div.grid-area > div { background-color:hsla(224, 100%, 65%, 0.5); border: 1px dashed; padding: 5px; }*/
 
 /* Customize Pico */
+[type="submit"], [type="reset"], [type="button"] {
+    margin-bottom: initial;
+}
+
 @media (min-width: 576px) {
     :root {
       --pico-font-size: 100%;

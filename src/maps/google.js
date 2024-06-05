@@ -5,46 +5,48 @@ define("maps/google", ["module"], function(module) {
     });
     
     return {
-        initMap: async function(id, options) {
+        initMap: async function(id, coords, options = {}) {
             const { Map } = await google.maps.importLibrary("maps");
             return new Map(
                 document.getElementById(id),
                 {
+                    center: coords,
                     zoom: 16,
                     mapTypeId: "satellite",
-                    heading: 0,
                     streetViewControl: false,
-                    ...options,
+                    ...options
                 }
             );
         },
-        initStaticMap: async function(id, options) {
+        initAerialMap: async function(id, coords, heading = 0, options = {}) {
             return this.initMap(
                 id,
+                coords,
                 {
                     zoom: 18,
                     minZoom: 18,
-                    ...options,
+                    heading: heading,
                     zoomControl: false,
                     mapTypeControl: false,
                     scaleControl: false,
-                    streetViewControl: false,
                     rotateControl: false,
                     fullscreenControl: true,
+                    ...options
                 }
             );
         },
-        initStreetView: async function(id, options) {
+        initStreetView: async function(id, coords, options = {}) {
             const { StreetViewPanorama } = await google.maps.importLibrary("streetView");
             return new StreetViewPanorama(
                 document.getElementById(id),
                 {
+                    position: coords,
                     pov: {
                         heading: 0,
                         pitch: 0,
                     },
-                    ...options,
                     panControl: false,
+                    ...options
                 }
             );
         }
