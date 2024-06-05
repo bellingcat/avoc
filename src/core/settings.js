@@ -7,7 +7,7 @@ define("core/settings", ["core/db"], function(db) {
         monitors: {
             min: 1,
             max: 7,
-            active: 5,
+            active: 6,
             setActive: function(v) {
                 this.active = v;
             }

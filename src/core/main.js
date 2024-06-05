@@ -13,6 +13,7 @@ function(db, router, gmaps, settings, countries) {
             this.map3 = await gmaps.initStaticMap("screen3", { zoom: 18, minZoom: 18, center: coords, heading: 90 });
             this.map4 = await gmaps.initStaticMap("screen4", { zoom: 18, minZoom: 18, center: coords, heading: 180 });
             this.map5 = await gmaps.initStaticMap("screen5", { zoom: 18, minZoom: 18, center: coords, heading: 270 });
+            this.map6 = await gmaps.initStreetView("screen6", { position: coords });
 
             // @TODO move logic inside module
             this.map1.addListener("center_changed", () => {
@@ -28,6 +29,7 @@ function(db, router, gmaps, settings, countries) {
                 this.map4.setHeading(180);
                 this.map5.setCenter(coords);
                 this.map5.setHeading(270);
+                this.map6.setPosition(coords);
                 
                 db.set("lastCoordinates", coords);
                 router.pushCoordinates(coords, "coords");
