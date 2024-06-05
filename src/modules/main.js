@@ -1,18 +1,18 @@
 /**
  * This module is responsible for the business logic of the app.
  */
-define('module/main', ['module/db', 'module/router', 'provider/googleMaps', 'module/settings', 'module/countries'],
+define("modules/main", ["modules/db", "modules/router", "providers/googleMaps", "modules/settings", "modules/countries"],
 function(db, router, gmaps, settings, countries) {
     return {
         init: async function() {
             const coords = await router.getCoordinates();
             
             // @TODO move logic inside module
-            this.map1 = await gmaps.initMap('screen1', { center: coords });
-            this.map2 = await gmaps.initStaticMap('screen2', { zoom: 18, minZoom: 18, center: coords });
-            this.map3 = await gmaps.initStaticMap('screen3', { zoom: 18, minZoom: 18, center: coords, heading: 90 });
-            this.map4 = await gmaps.initStaticMap('screen4', { zoom: 18, minZoom: 18, center: coords, heading: 180 });
-            this.map5 = await gmaps.initStaticMap('screen5', { zoom: 18, minZoom: 18, center: coords, heading: 270 });
+            this.map1 = await gmaps.initMap("screen1", { center: coords });
+            this.map2 = await gmaps.initStaticMap("screen2", { zoom: 18, minZoom: 18, center: coords });
+            this.map3 = await gmaps.initStaticMap("screen3", { zoom: 18, minZoom: 18, center: coords, heading: 90 });
+            this.map4 = await gmaps.initStaticMap("screen4", { zoom: 18, minZoom: 18, center: coords, heading: 180 });
+            this.map5 = await gmaps.initStaticMap("screen5", { zoom: 18, minZoom: 18, center: coords, heading: 270 });
 
             // @TODO move logic inside module
             this.map1.addListener("center_changed", () => {
@@ -29,8 +29,8 @@ function(db, router, gmaps, settings, countries) {
                 this.map5.setCenter(coords);
                 this.map5.setHeading(270);
                 
-                db.set('avoc.lastCoords', coords);
-                router.pushCoordinates(coords, 'coords');
+                db.set("avoc.lastCoords", coords);
+                router.pushCoordinates(coords, "coords");
             });
         },
         goToCoords: function(c) {

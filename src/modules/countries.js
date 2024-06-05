@@ -5,7 +5,7 @@
  * 
  * @TODO in the future, consider adding regions/major cities
  */
-define("module/countries", function () {
+define("modules/countries", function () {
     return [
         { name: "Afghanistan", coords: "34.5289,69.1725" },
         { name: "Albania", coords: "41.3275,19.8189" },

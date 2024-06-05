@@ -2,21 +2,21 @@
  * Init
  */
 requirejs.config({
-    baseUrl: 'src',
+    baseUrl: "src",
     paths: {
-        module: 'modules',
-        lib: 'libs',
-        provider: 'providers',
-    }
+        modules: "modules",
+        libs: "libs",
+        providers: "providers",
+    },
 });
 
-requirejs(['module/main'], function(main) {
+requirejs(["modules/main"], function(main) {
     (async () => {
         await main.init();
     })();
     
-    // Workaround for Alpine's reference problem
-    window.main = main;
+    // Workaround for Alpine"s reference problem
+    self.main = main;
 
-    requirejs(['lib/alpine']);
+    requirejs(["libs/alpine"]);
 });

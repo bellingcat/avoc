@@ -1,12 +1,12 @@
 /**
  * A quick and simple router.
  */
-define('module/router', ['module/db'], function(db) {
+define("modules/router", ["modules/db"], function(db) {
     return {
         pushState: function(data, name) {
-            const address = window.location.protocol+'//'+window.location.pathname;
+            const address = window.location.protocol+"//"+window.location.pathname;
             const params = typeof data !== "string" ? JSON.stringify(data) : data;
-            window.history.pushState(data, '', address+'?'+name+'='+params);
+            window.history.pushState(data, "", address+"?"+name+"="+params);
         },
         hasParam: function(name) {
             return new URLSearchParams(window.location.search).has(name);
@@ -15,7 +15,7 @@ define('module/router', ['module/db'], function(db) {
             return new URLSearchParams(window.location.search).get(name);
         },
         pushCoordinates: function(data) {
-            this.pushState(data.lat+','+data.lng, "coords");
+            this.pushState(data.lat+","+data.lng, "coords");
         },
         hasValidCoordinates: function() {
             if (!this.hasParam("coords"))

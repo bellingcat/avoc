@@ -1,10 +1,10 @@
 /**
  * Provides an interface with ImmortalDB
  */
-define('module/db', ['lib/immortal-db'], function(Immortal) {
+define("modules/db", ["libs/immortal-db"], function(Immortal) {
     return {
         set: function(key, value) {
-            if (typeof value != 'string')
+            if (typeof value != "string")
                 value = JSON.stringify(value);
             return Immortal.ImmortalDB.set(key, value);
         },
