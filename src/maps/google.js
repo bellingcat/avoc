@@ -22,10 +22,15 @@ define("maps/google", ["module"], function(module) {
             return this.initMap(
                 id,
                 {
+                    zoom: 18,
+                    minZoom: 18,
                     ...options,
-                    clickableIcons: false,
-                    disableDefaultUI: true,
-                    //gestureHandling: "none",
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: true,
                 }
             );
         },
@@ -39,6 +44,7 @@ define("maps/google", ["module"], function(module) {
                         pitch: 0,
                     },
                     ...options,
+                    panControl: false,
                 }
             );
         }

@@ -9,10 +9,10 @@ function(db, router, gmaps, settings, countries) {
             
             // @TODO move logic inside module
             this.map1 = await gmaps.initMap("screen1", { center: coords });
-            this.map2 = await gmaps.initStaticMap("screen2", { zoom: 18, minZoom: 18, center: coords });
-            this.map3 = await gmaps.initStaticMap("screen3", { zoom: 18, minZoom: 18, center: coords, heading: 90 });
-            this.map4 = await gmaps.initStaticMap("screen4", { zoom: 18, minZoom: 18, center: coords, heading: 180 });
-            this.map5 = await gmaps.initStaticMap("screen5", { zoom: 18, minZoom: 18, center: coords, heading: 270 });
+            this.map2 = await gmaps.initStaticMap("screen2", { center: coords });
+            this.map3 = await gmaps.initStaticMap("screen3", { center: coords, heading: 90 });
+            this.map4 = await gmaps.initStaticMap("screen4", { center: coords, heading: 180 });
+            this.map5 = await gmaps.initStaticMap("screen5", { center: coords, heading: 270 });
             this.map6 = await gmaps.initStreetView("screen6", { position: coords });
 
             // @TODO move logic inside module
