@@ -1,7 +1,7 @@
 /**
  * Settings behavior.
  */
-define("modules/settings", ["modules/db"], function(db) {
+define("core/settings", ["core/db"], function(db) {
     //@TODO monitors to be deprecated, simplify logic
     return {
         monitors: {

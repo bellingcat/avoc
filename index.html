@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="css/app.css" />
+        <script src="configuration.js"></script>
         <script data-main="src/app.js" src="src/libs/require.js"></script>
     </head>
     <body x-data="{ monitors: main.settings.monitors, countries: main.countries }">
@@ -13,7 +14,7 @@
             <ul>
                 <li>
                     <form>
-                        <select name="country" aria-label="Navigate to Country" x-on:change="main.goToCoords($event.target.value)">
+                        <select name="country" aria-label="Navigate to Country" x-on:change="main.setCoordinates($event.target.value)">
                             <option selected value="">
                                 Choose country...
                             </option>

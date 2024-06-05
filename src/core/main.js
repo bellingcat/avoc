@@ -1,11 +1,11 @@
 /**
  * This module is responsible for the business logic of the app.
  */
-define("modules/main", ["modules/db", "modules/router", "providers/googleMaps", "modules/settings", "modules/countries"],
+define("core/main", ["core/db", "core/router", "maps/google", "core/settings", "core/countries"],
 function(db, router, gmaps, settings, countries) {
     return {
         init: async function() {
-            const coords = await router.getCoordinates();
+            const coords = await this.getCoordinates();
             
             // @TODO move logic inside module
             this.map1 = await gmaps.initMap("screen1", { center: coords });
@@ -29,11 +29,16 @@ function(db, router, gmaps, settings, countries) {
                 this.map5.setCenter(coords);
                 this.map5.setHeading(270);
                 
-                db.set("avoc.lastCoords", coords);
+                db.set("lastCoordinates", coords);
                 router.pushCoordinates(coords, "coords");
             });
         },
-        goToCoords: function(c) {
+        getCoordinates: async function() {
+            return router.hasValidCoordinates()
+                ? router.getCoordinates()
+                : await db.get("lastCoordinates", "{\"lat\":50.84,\"lng\":4.34}");
+        },
+        setCoordinates: function(c) {
             if(typeof c != "string" || c == "")
                 return;
 
