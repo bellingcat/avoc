@@ -1,4 +1,16 @@
 /**
+ * Overrides
+ */
+String.prototype.isJSON = function() {
+    var s = this;
+    if (/^\s*$/.test(s)) return false;
+    s = s.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@');
+    s = s.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');
+    s = s.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+    return (/^[\],:{}\s]*$/).test(s);
+};
+
+/**
  * Init
  */
 const setupCheck = function() {
@@ -23,7 +35,10 @@ if(setupCheck()) {
         },
         config: {
             "core/main": {
-                defaultCoords: { lat: 50.84, lng: 4.34 }
+                defaultCoords: { lat: 50.83934958273, lng: 4.341244544982925 }
+            },
+            "core/router": {
+                allowedKeys: ["coords"]
             },
             "maps/google": {
                 apiKey: self.configuration.apiKeys.google

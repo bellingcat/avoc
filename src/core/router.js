@@ -1,40 +1,56 @@
 /**
  * A quick and simple router.
  */
-define("core/router", function() {
+define("core/router", ["module"], function(module) {
     return {
-        pushState: function(data, name) {
-            const address = window.location.protocol+"//"+window.location.pathname;
-            const params = typeof data !== "string" ? JSON.stringify(data) : data;
-            window.history.pushState(data, "", address+"?"+name+"="+params);
-        },
-        hasParam: function(name) {
-            return new URLSearchParams(window.location.search).has(name);
-        },
-        getParam: function(name) {
-            return new URLSearchParams(window.location.search).get(name);
-        },
-        pushCoordinates: function(data) {
-            this.pushState(data.lat+","+data.lng, "coords");
-        },
-        hasValidCoordinates: function() {
-            if (!this.hasParam("coords"))
-                return false;
+        allowedKeys: module.config().allowedKeys,
 
-            return this.getParam("coords").match(
-                new RegExp(/^[-]?([1-8]?\d(\.\d+)?|90(\.0+)?),*[-]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/)
-            );
-        },
-        getCoordinates: function() {
-            if(this.hasValidCoordinates()) {
-                const coords = this.getParam("coords").split(",");
-                return {
-                    lat: parseFloat(coords[0]),
-                    lng: parseFloat(coords[1])
-                };
+        // Parses URL looking for allowed params and updates the state
+        init: function() {
+            const URLparams = new URLSearchParams(window.location.search);
+            if(URLparams.size > 0) {
+                const data = {};
+                for(const [key, value] of URLparams.entries()) {
+                    data[key] = value.isJSON()
+                        ? JSON.parse(value)
+                        : value;
+                }
+                this.pushState(data);
             }
+        },
+        getLocationAddress: function() {
+            return window.location.protocol+"//"+window.location.pathname;
+        },
+        parseURLParam: function(key, val) {
+            return key + "=" + (typeof val !== "string" ? JSON.stringify(val) : val);
+        },
+        pushState: function(data) {
+            const state = {};
+            const params = [];
+            Object.keys(data).forEach((key) => {
+                if(this.allowedKeys.indexOf(key) > -1) {
+                    params.push(this.parseURLParam(key, data[key]));
+                    state[key] = data[key];
+                }
+            });
 
-            return null;
+            let address = this.getLocationAddress();
+            if(params.length > 0)
+                address += "?" + params.join("&");
+
+            window.history.pushState(state, "", address);
+        },
+        resetState: function() {
+            window.history.pushState(null, "", this.getLocationAddress());
+        },
+        getState: function() {
+            return history.state;
+        },
+        getStateOf: function(key) {
+            return history.state[key];
+        },
+        hasStateOf: function(key) {
+            return history.state && history.state[key];
         }
     }
 });

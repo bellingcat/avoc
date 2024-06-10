@@ -3,10 +3,12 @@
  */
 define("core/main", ["module", "core/db", "core/router", "core/settings", "core/countries", "maps/google", "maps/mapbox"],
 function(module, db, router, settings, countries, gmaps, mapbox) {
+    
+    router.init();
+    
     return {
         init: async function() {
             const coords = await this.getCoordinates();
-            console.log(coords);
             
             // @TODO move logic inside module
             this.map1 = await gmaps.initMap("screen1", coords);
@@ -32,14 +34,14 @@ function(module, db, router, settings, countries, gmaps, mapbox) {
                 this.map5.setHeading(270);
                 this.map6.setPosition(coords);
                 
-                db.set("lastCoordinates", coords);
-                router.pushCoordinates(coords, "coords");
+                router.pushState({coords: coords});
+                db.set("Avoc.lastCoords", coords);
             });
         },
         getCoordinates: async function() {
-            return router.hasValidCoordinates()
-                ? router.getCoordinates()
-                : await db.get("lastCoordinates", module.config().defaultCoords);
+            return router.hasStateOf("coords")
+                ? router.getStateOf("coords")
+                : await db.get("Avoc.lastCoords", module.config().defaultCoords);
         },
         setCoordinates: function(c) {
             if(typeof c != "string" || c == "")
