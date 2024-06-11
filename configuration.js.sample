@@ -2,6 +2,7 @@
  * Currently unused. Later, it will provide an easy way to edit configurations.
  */
 self.configuration = {
+    language: "en",
     // In order to use one of the providers, a valid API key must be provided.
     apiKeys: {
         google: "",
