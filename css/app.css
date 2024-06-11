@@ -1,6 +1,7 @@
 @import 'pico.css';
 @import 'screens.css';
-@import 'mapbox-gl.css';
+@import 'fonts.css';
+/*@import 'mapbox-gl.css';*/
 
 /* Template */
 main {
@@ -15,18 +16,37 @@ nav {
     margin-left: auto;
 }
 
+nav fieldset {
+    margin-bottom: 0 !important;
+}
+
+nav fieldset input {
+    max-width: 100px;
+    text-align: center;
+}
+
+nav button[disabled] {
+    background-color: var(--pico-form-element-background-color);
+    border: var(--pico-border-width) solid;
+    border-color: var(--pico-form-element-border-color);
+}
+
+nav button[disabled] i {
+    color: rgb(227, 227, 227);
+}
+
 .screen1::after {
-  content: ".";
-  position: absolute;
-  top: calc(50% - 8px);
-  left: calc(50% - 8px);
-  padding: 5px;
-  font-size: 0px;
-  width: 16px;
-  height: 16px;
-  border-radius: 16px;
-  border: 3px solid #F44336;
-  border-style: groove;
+    content: ".";
+    position: absolute;
+    top: calc(50% - 8px);
+    left: calc(50% - 8px);
+    padding: 5px;
+    font-size: 0px;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border: 3px solid #F44336;
+    border-style: groove;
 }
 
 /* Debug */
@@ -35,6 +55,33 @@ nav {
 /* Customize Pico */
 [type="submit"], [type="reset"], [type="button"] {
     margin-bottom: initial;
+}
+
+button[disabled][data-tooltip]{
+    cursor: default;
+    pointer-events: auto;
+}
+
+[data-tooltip][data-ribbon-placement=left]:focus::before,
+[data-tooltip][data-ribbon-placement=left]:focus::after,
+[data-tooltip][data-ribbon-placement=left]:hover::before,
+[data-tooltip][data-ribbon-placement=left]:hover::after {
+    --pico-tooltip-slide-to: translate(-10%, 0.25rem);
+}
+
+[data-tooltip][data-ribbon-placement=right]:focus::before,
+[data-tooltip][data-ribbon-placement=right]:focus::after,
+[data-tooltip][data-ribbon-placement=right]:hover::before,
+[data-tooltip][data-ribbon-placement=right]:hover::after {
+    --pico-tooltip-slide-to: translate(-90%, 0.25rem);
+}
+
+[data-tooltip][data-placement="top"]::before,
+[data-tooltip][data-placement="top"]::after,
+[data-tooltip]::before,
+[data-tooltip]::after {
+    padding: inherit 1rem;
+    border: 1px solid #000;
 }
 
 @media (min-width: 576px) {
@@ -65,4 +112,12 @@ nav {
     :root {
       --pico-font-size: 100%;
     }
+}
+
+:where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled], :where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
+    opacity: 1;
+}
+
+:root {
+    --pico-form-element-disabled-opacity: 1;
 }
