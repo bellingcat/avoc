@@ -8,21 +8,32 @@
         <script src="configuration.js"></script>
         <script data-main="src/app.js" src="src/libs/require.js"></script>
     </head>
-    <body x-data="{ countries: main.countries }">
+    <body x-data>
         <nav>
-            <ul><li><strong>Avoc</strong></li></ul>
             <ul>
                 <li>
-                    <form>
-                        <select name="country" aria-label="Navigate to Country" x-on:change="main.setCoordinates($event.target.value)">
-                            <option selected value="">
-                                Choose country...
-                            </option>
-                            <template x-for="country in countries">
+                    <fieldset role="group">
+                        <button disabled :data-tooltip="$store.translations.tooltipCountry" data-placement="bottom" data-ribbon-placement="left">
+                            <i class="fa-solid fa-earth-europe"></i>
+                        </button>
+                        <select name="country" aria-label="Navigate to Country" x-on:change="app.setCoordinates($event.target.value)">
+                            <option selected value="" x-text="$store.translations.chooseCountry"></option>
+                            <template x-for="country in $store.countries">
                                 <option x-text="country.name" :value="country.coords"></option>
                             </template>
-                          </select>
-                     </form>
+                        </select>
+                    </fieldset>
+                </li>
+                <li>
+                    <fieldset role="group">
+                        <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
+                            <i class="fa-solid fa-mountain"></i>
+                        </button>
+                        <input type="text" x-model="$store.elevation.value" disabled>
+                        <button x-on:click="$store.elevation.refresh()">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                    </fieldset>
                 </li>
             </ul>
         </nav>
@@ -36,5 +47,17 @@
                 <div class="screen6" id="screen6"></div>
             </div>
         </main>
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('translations', app.services.getTranslation());
+                Alpine.store('countries', app.services.getCountries());
+                Alpine.store('elevation', {
+                    value: '--',
+                    async refresh() {
+                        this.value = await app.services.getElevation()
+                    }
+                });
+            })
+        </script>
     </body>
 </html>

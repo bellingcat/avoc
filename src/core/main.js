@@ -1,15 +1,26 @@
 /**
  * This module is responsible for the business logic of the app.
  */
-define("core/main", ["module", "core/db", "core/router", "core/settings", "core/countries", "maps/google", "maps/mapbox"],
-function(module, db, router, settings, countries, gmaps, mapbox) {
-    
+define("core/main",
+[
+    "core/db",
+    "core/router",
+    "core/settings",
+    "core/services",
+    "maps/google",
+    "maps/mapbox"
+],
+function(db, router, settings, services, gmaps, mapbox) {
+
     router.init();
-    
+
     return {
+        settings: settings,
+        services: services,
+
         init: async function() {
-            const coords = await this.getCoordinates();
-            
+            const coords = await this.services.getCoordinates();
+
             // @TODO move logic inside module
             this.map1 = await gmaps.initMap("screen1", coords);
             this.map2 = await gmaps.initAerialMap("screen2", coords);
@@ -33,27 +44,19 @@ function(module, db, router, settings, countries, gmaps, mapbox) {
                 this.map5.setCenter(coords);
                 this.map5.setHeading(270);
                 this.map6.setPosition(coords);
-                
+
                 router.pushState({coords: coords});
                 db.set("Avoc.lastCoords", coords);
             });
         },
-        getCoordinates: async function() {
-            return router.hasStateOf("coords")
-                ? router.getStateOf("coords")
-                : await db.get("Avoc.lastCoords", module.config().defaultCoords);
-        },
         setCoordinates: function(c) {
-            if(typeof c != "string" || c == "")
-                return;
+            if(typeof c != "string" || c == "") return;
 
             const coords = c.split(",");
             this.map1.setCenter({
                 lat: parseFloat(coords[0]),
                 lng: parseFloat(coords[1])
             });
-        },
-        settings: settings,
-        countries: countries,
+        }
     }
 });

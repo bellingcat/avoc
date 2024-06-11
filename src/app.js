@@ -22,8 +22,9 @@ if(setupCheck()) {
             services: "services"
         },
         config: {
-            "core/main": {
-                defaultCoords: { lat: 50.83934958273, lng: 4.341244544982925 }
+            "core/services": {
+                defaultCoords: { lat: 50.83934958273, lng: 4.341244544982925 },
+                language: self.configuration.language
             },
             "core/router": {
                 allowedKeys: ["coords"]
@@ -34,6 +35,9 @@ if(setupCheck()) {
             "maps/mapbox": {
                 apiKey: self.configuration.apiKeys.mapbox
             },
+            "services/elevation": {
+                endpoint: self.configuration.services.elevation
+            }
         }
     });
 
@@ -43,7 +47,7 @@ if(setupCheck()) {
      * Launching the app
      */
     requirejs(["core/main"], function(main) {
-        self.main = main; // Workaround for Alpine's reference issue
+        self.app = main; // Workaround for Alpine's reference issue
         
         requirejs(["libs/alpine"]);
 
