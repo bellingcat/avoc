@@ -29,11 +29,32 @@
                         <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
                             <i class="fa-solid fa-mountain"></i>
                         </button>
-                        <input type="text" x-model="$store.elevation.value" disabled>
-                        <button x-on:click="$store.elevation.refresh()">
+                        <input class="small" type="text" x-model="$store.weather.elevation" disabled>
+                        <button disabled :data-tooltip="$store.translations.temperature" data-placement="bottom">
+                            <i class="fa-solid fa-temperature-half"></i>
+                        </button>
+                        <input class="small" type="text" x-model="$store.weather.temperature" disabled>
+                        <button disabled :data-tooltip="$store.translations.precipitation" data-placement="bottom">
+                            <i class="fa-solid fa-droplet"></i>
+                        </button>
+                        <input class="small" type="text" x-model="$store.weather.precipitation" disabled>
+                        <button disabled :data-tooltip="$store.translations.cloudCover" data-placement="bottom">
+                            <i class="fa-solid fa-cloud"></i>
+                        </button>
+                        <input class="small" type="text" x-model="$store.weather.cloudCover" disabled>
+                        <button disabled :data-tooltip="$store.translations.windDirection" data-placement="bottom">
+                            <i class="fa-solid fa-location-arrow"></i>
+                        </button>
+                        <input class="small" type="text" x-model="$store.weather.windDirection" disabled>
+                        <button disabled :data-tooltip="$store.translations.windSpeed" data-placement="bottom">
+                            <i class="fa-solid fa-wind"></i>
+                        </button>
+                        <input class="large" type="text" x-model="$store.weather.windSpeed" disabled>
+                        <button x-on:click="$store.weather.refresh()">
                             <i class="fa-solid fa-rotate"></i>
                         </button>
                     </fieldset>
+                    <span x-html="$store.weather.label"></span>
                 </li>
             </ul>
         </nav>
@@ -51,10 +72,23 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.store('translations', app.services.getTranslation());
                 Alpine.store('countries', app.services.getCountries());
-                Alpine.store('elevation', {
-                    value: '--',
+                Alpine.store('weather', {
+                    elevation: '--',
+                    temperature: '--',
+                    precipitation: '--',
+                    cloudCover: '--',
+                    windSpeed: '--',
+                    windDirection: '--',
+                    label: '',
                     async refresh() {
-                        this.value = await app.services.getElevation()
+                        const weather = await app.services.getCurrentWeather();
+                        this.temperature = weather.temperature_2m;
+                        this.precipitation = weather.precipitation;
+                        this.cloudCover = weather.cloud_cover;
+                        this.windSpeed = weather.wind_speed_10m;
+                        this.windDirection = weather.wind_direction_10m;
+                        this.label = weather.label;
+                        this.elevation = weather.elevation;
                     }
                 });
             })

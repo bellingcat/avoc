@@ -5,15 +5,32 @@
 
 /* Template */
 main {
-    height: 92vh;
+    height: 90vh;
     padding: 0 !important;
 }
 
 nav {
-    height: 8vh;
+    height: 10vh;
     max-width: 95%;
     margin-right: auto;
     margin-left: auto;
+}
+
+nav ol,
+nav ul {
+    align-items: center;
+}
+
+nav ol li,
+nav ul li {
+    height: 8vh;
+}
+
+nav ol li span,
+nav ul li span {
+    font-size: 13px;
+    display: inherit;
+    margin-top: 2px;
 }
 
 nav fieldset {
@@ -21,8 +38,18 @@ nav fieldset {
 }
 
 nav fieldset input {
-    max-width: 100px;
+    font-size: 14px;
+    max-width: inherit;
+    width: initial;
     text-align: center;
+}
+
+nav fieldset input.small {
+    width: 60px;
+}
+
+nav fieldset input.large {
+    width: 100px;
 }
 
 nav button[disabled] {
@@ -34,23 +61,6 @@ nav button[disabled] {
 nav button[disabled] i {
     color: rgb(227, 227, 227);
 }
-
-.screen1::after {
-    content: ".";
-    position: absolute;
-    top: calc(50% - 8px);
-    left: calc(50% - 8px);
-    padding: 5px;
-    font-size: 0px;
-    width: 16px;
-    height: 16px;
-    border-radius: 16px;
-    border: 3px solid #F44336;
-    border-style: groove;
-}
-
-/* Debug */
-/*div.grid-area > div { background-color:hsla(224, 100%, 65%, 0.5); border: 1px dashed; padding: 5px; }*/
 
 /* Customize Pico */
 [type="submit"], [type="reset"], [type="button"] {
@@ -84,6 +94,14 @@ button[disabled][data-tooltip]{
     border: 1px solid #000;
 }
 
+:where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled], :where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
+    opacity: 1;
+}
+
+:root {
+    --pico-form-element-disabled-opacity: 1;
+}
+
 @media (min-width: 576px) {
     :root {
       --pico-font-size: 100%;
@@ -112,12 +130,4 @@ button[disabled][data-tooltip]{
     :root {
       --pico-font-size: 100%;
     }
-}
-
-:where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled], :where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
-    opacity: 1;
-}
-
-:root {
-    --pico-form-element-disabled-opacity: 1;
 }

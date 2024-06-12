@@ -9,6 +9,20 @@ div.grid-area {
 
 div.grid-area > div { display: none; }
 
+.screen1::after {
+    content: ".";
+    position: absolute;
+    top: calc(50% - 8px);
+    left: calc(50% - 8px);
+    padding: 5px;
+    font-size: 0px;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border: 3px solid #F44336;
+    border-style: groove;
+}
+
 /* 1 screen */
 div.grid-area[screens="1"] { grid-template-columns: 1fr; grid-template-rows: 1fr; }
 div.grid-area[screens="1"] > div.screen1 { grid-area: 1 / 1 / 2 / 2; display: block; }

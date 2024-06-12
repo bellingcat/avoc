@@ -10,7 +10,13 @@ define("services/translations", function () {
         en: {
             chooseCountry: "Choose country...",
             tooltipCountry: "Fast navigate to a specific country",
-            tooltipElevation: "Obtain elevation for the current position",
+            tooltipElevation: "Elevation",
+            temperature: "Temperature",
+            precipitation: "Precipitation",
+            cloudCover: "Cloud cover",
+            windSpeed: "Wind speed",
+            windDirection: "Wind direction",
+            weatherLabel: "WMO Label",
         }
     }
 });
