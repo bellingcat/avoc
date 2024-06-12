@@ -9,8 +9,8 @@ function(module) {
                 .replace("$lat", coords.lat)
                 .replace("$lng", coords.lng);
 
-            let response = await fetch(url);
-            let data = await response.json();
+            const response = await fetch(url);
+            const data = await response.json();
 
             return data.results[0].elevation + 'm';
         },
