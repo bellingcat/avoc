@@ -21,6 +21,7 @@ div.grid-area > div { display: none; }
     border-radius: 16px;
     border: 3px solid #F44336;
     border-style: groove;
+    pointer-events: none;
 }
 
 /* 1 screen */

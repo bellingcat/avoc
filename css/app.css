@@ -62,6 +62,81 @@ nav button[disabled] i {
     color: rgb(227, 227, 227);
 }
 
+img.compass {
+    position: absolute;
+    z-index: 1;
+    width: 50px;
+    left: 0.4vw;
+    top: 92vh;
+    transform: rotate(90deg);
+    transition: all 1s;
+}
+
+img[data-compass] {
+    position: absolute;
+    z-index: 1;
+    width: 50px;
+    transform: rotate(0);
+    transition: all 1s;
+}
+
+img[data-compass][data-rotation="45"] {
+    transform: rotate(45deg);
+}
+
+img[data-compass][data-rotation="90"] {
+    transform: rotate(90deg);
+}
+
+img[data-compass][data-rotation="135"] {
+    transform: rotate(135deg);
+}
+
+img[data-compass][data-rotation="180"] {
+    transform: rotate(180deg);
+}
+
+img[data-compass][data-rotation="225"] {
+    transform: rotate(225deg);
+}
+
+img[data-compass][data-rotation="270"] {
+    transform: rotate(270deg);
+}
+
+img[data-compass][data-rotation="315"] {
+    transform: rotate(315deg);
+}
+
+img[data-compass][data-rotation="360"] {
+    transform: rotate(360deg);
+}
+
+img[data-compass][data-screen="1"] {
+    left: 0.4vw;
+    top: 92vh;
+}
+
+img[data-compass][data-screen="2"] {
+    left: 72.2vw;
+    top: 33vh;
+}
+
+img[data-compass][data-screen="3"] {
+    left: 97.2vw;
+    top: 33vh;
+}
+
+img[data-compass][data-screen="4"] {
+    left: 72.2vw;
+    top: 63vh;
+}
+
+img[data-compass][data-screen="5"] {
+    left: 97.2vw;
+    top: 63vh;
+}
+
 /* Customize Pico */
 [type="submit"], [type="reset"], [type="button"] {
     margin-bottom: initial;
