@@ -37,6 +37,9 @@ if(setupCheck()) {
             },
             "services/elevation": {
                 endpoint: self.configuration.services.elevation
+            },
+            "services/weather": {
+                endpoint: self.configuration.services.weather
             }
         }
     });
