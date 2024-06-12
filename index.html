@@ -4,7 +4,7 @@
         <title>Avoc</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="css/app.css" />
+        <link href="css/app.css" rel="stylesheet" />
         <script src="configuration.js"></script>
         <script data-main="src/app.js" src="src/libs/require.js"></script>
     </head>
@@ -16,7 +16,7 @@
                         <button disabled :data-tooltip="$store.translations.tooltipCountry" data-placement="bottom" data-ribbon-placement="left">
                             <i class="fa-solid fa-earth-europe"></i>
                         </button>
-                        <select name="country" aria-label="Navigate to Country" x-on:change="app.setCoordinates($event.target.value)">
+                        <select name="country" x-on:change="app.setCoordinates($event.target.value)">
                             <option selected value="" x-text="$store.translations.chooseCountry"></option>
                             <template x-for="country in $store.countries">
                                 <option x-text="country.name" :value="country.coords"></option>
