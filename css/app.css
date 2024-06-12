@@ -78,6 +78,7 @@ img[data-compass] {
     width: 50px;
     transform: rotate(0);
     transition: all 1s;
+    pointer-events: none;
 }
 
 img[data-compass][data-rotation="45"] {
