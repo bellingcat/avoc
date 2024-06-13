@@ -11,9 +11,9 @@ self.configuration = {
     },
     // Specify which map provider to use in each section.
     maps: {
-        mainMap:   "google", // [required] possible values: google, bing, mapbox
-        aerialMap: "google", // [required] possible values: google, bing, mapbox
-        streetMap: "google", // [required] possible values: google, bing, mapbox
+        mainMap:   "google", // [required] possible values: google, mapbox
+        aerialMap: "google", // [required] possible values: google
+        streetMap: "google", // [required] possible values: google
     },
     // Quick links are dinamically generated, and can be added freely.
     // Syntax:
@@ -27,7 +27,7 @@ self.configuration = {
     },
     services: {
         elevation: "https://api.open-elevation.com/api/v1/lookup?locations=$lat,$lng", // Powered by https://www.open-elevation.com/
-        weather: "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lng&hourly=temperature_2m",  // Powered by https://open-meteo.com
+        weather: "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lng&current=temperature_2m,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m"",  // Powered by https://open-meteo.com
         weather_historical: "https://archive-api.open-meteo.com/v1/archive?latitude=$lat&longitude=$lng", // Powered by https://open-meteo.com
     }
 };
