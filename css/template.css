@@ -1,0 +1,129 @@
+main {
+    height: 90vh;
+    padding: 0 !important;
+}
+
+nav {
+    height: 10vh;
+    max-width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+nav ol,
+nav ul {
+    align-items: center;
+}
+
+nav ol li,
+nav ul li {
+    height: 8vh;
+}
+
+nav ol li span,
+nav ul li span {
+    font-size: 13px;
+    display: inherit;
+    margin-top: 2px;
+}
+
+nav fieldset {
+    margin-bottom: 0 !important;
+}
+
+nav fieldset input {
+    font-size: 14px;
+    max-width: inherit;
+    width: initial;
+    text-align: center;
+}
+
+nav fieldset input.small {
+    width: 60px;
+}
+
+nav fieldset input.large {
+    width: 100px;
+}
+
+nav button[disabled] {
+    background-color: var(--pico-form-element-background-color);
+    border: var(--pico-border-width) solid;
+    border-color: var(--pico-form-element-border-color);
+}
+
+nav button[disabled] i {
+    color: rgb(227, 227, 227);
+}
+
+[type="submit"],
+[type="reset"],
+[type="button"] {
+    margin-bottom: initial;
+}
+
+button[disabled][data-tooltip] {
+    cursor: default;
+    pointer-events: auto;
+}
+
+[data-tooltip][data-ribbon-placement="left"]:focus::before,
+[data-tooltip][data-ribbon-placement="left"]:focus::after,
+[data-tooltip][data-ribbon-placement="left"]:hover::before,
+[data-tooltip][data-ribbon-placement="left"]:hover::after {
+    --pico-tooltip-slide-to: translate(-10%, 0.25rem);
+}
+
+[data-tooltip][data-ribbon-placement="right"]:focus::before,
+[data-tooltip][data-ribbon-placement="right"]:focus::after,
+[data-tooltip][data-ribbon-placement="right"]:hover::before,
+[data-tooltip][data-ribbon-placement="right"]:hover::after {
+    --pico-tooltip-slide-to: translate(-90%, 0.25rem);
+}
+
+[data-tooltip][data-placement="top"]::before,
+[data-tooltip][data-placement="top"]::after,
+[data-tooltip]::before,
+[data-tooltip]::after {
+    padding: inherit 1rem;
+    border: 1px solid #000;
+}
+
+:where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled],
+:where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
+    opacity: 1;
+}
+
+:root {
+    --pico-form-element-disabled-opacity: 1;
+}
+
+@media (min-width: 576px) {
+    :root {
+        --pico-font-size: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    :root {
+        --pico-font-size: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --pico-font-size: 100%;
+    }
+}
+
+@media (min-width: 1280px) {
+    :root {
+        --pico-font-size: 100%;
+    }
+}
+
+@media (min-width: 1536px) {
+    :root {
+        --pico-font-size: 100%;
+    }
+}
