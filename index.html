@@ -14,7 +14,7 @@
                 <li>
                     <fieldset role="group">
                         <button disabled :data-tooltip="$store.translations.tooltipCountry" data-placement="bottom" data-ribbon-placement="left">
-                            <i class="fa-solid fa-earth-europe"></i>
+                            🌐
                         </button>
                         <select name="country" x-on:change="app.maps.jumpTo($event.target.value)">
                             <option selected value="" x-text="$store.translations.chooseCountry"></option>
@@ -27,31 +27,31 @@
                 <li>
                     <fieldset role="group">
                         <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
-                            <i class="fa-solid fa-mountain"></i>
+                            ⛰️
                         </button>
                         <input class="small" type="text" x-model="$store.weather.elevation" disabled>
                         <button disabled :data-tooltip="$store.translations.temperature" data-placement="bottom">
-                            <i class="fa-solid fa-temperature-half"></i>
+                            🌡️
                         </button>
                         <input class="small" type="text" x-model="$store.weather.temperature" disabled>
                         <button disabled :data-tooltip="$store.translations.precipitation" data-placement="bottom">
-                            <i class="fa-solid fa-droplet"></i>
+                            💧
                         </button>
                         <input class="small" type="text" x-model="$store.weather.precipitation" disabled>
                         <button disabled :data-tooltip="$store.translations.cloudCover" data-placement="bottom">
-                            <i class="fa-solid fa-cloud"></i>
+                            ☁️
                         </button>
                         <input class="small" type="text" x-model="$store.weather.cloudCover" disabled>
                         <button disabled :data-tooltip="$store.translations.windDirection" data-placement="bottom">
-                            <i class="fa-solid fa-location-arrow"></i>
+                            🧭
                         </button>
                         <input class="small" type="text" x-model="$store.weather.windDirection" disabled>
                         <button disabled :data-tooltip="$store.translations.windSpeed" data-placement="bottom">
-                            <i class="fa-solid fa-wind"></i>
+                            💨
                         </button>
                         <input class="large" type="text" x-model="$store.weather.windSpeed" disabled>
-                        <button x-on:click="$store.weather.refresh()">
-                            <i class="fa-solid fa-rotate"></i>
+                        <button x-on:click="$store.weather.refresh()" style="color: whitesmoke;padding: 0 9px 0 6px;font-size: 24px;">
+                            ⟲
                         </button>
                     </fieldset>
                     <span x-html="$store.weather.label"></span>
