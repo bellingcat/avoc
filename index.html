@@ -57,6 +57,11 @@
                     <span x-html="$store.weather.label"></span>
                 </li>
             </ul>
+            <ul>
+                <li>
+                    <button id="shortcuts-btn" x-on:click="$refs.shortcutsDialog.setAttribute('open', '')">☰</button>
+                </li>
+            </ul>
         </nav>
         <main>
             <div class="grid-area" screens="6">
@@ -72,6 +77,26 @@
                 <div id="screen5"></div>
                 <div id="screen6"></div>
             </div>
+            <dialog x-ref="shortcutsDialog">
+                <article>
+                    <header>
+                        <button aria-label="Close" rel="prev" x-on:click="$refs.shortcutsDialog.removeAttribute('open')"></button>
+                        <p>
+                            <strong>Shortcuts</strong>
+                        </p>
+                    </header>
+                    <template x-for="category in app.shortcuts.getCategories()">
+                        <div>
+                            <h4 x-text="category"></h4>
+                            <div class="flex">
+                                <template x-for="link in app.shortcuts.getLinks(category)">
+                                    <button x-text="link.name" x-on:click="app.shortcuts.open(link.url)"></a>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </article>
+            </dialog>
         </main>
         <script>
             document.addEventListener('alpine:init', () => {
@@ -96,7 +121,7 @@
                         this.elevation = weather.elevation;
                     }
                 });
-            })
+            });
         </script>
     </body>
 </html>

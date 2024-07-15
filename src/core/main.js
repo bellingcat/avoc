@@ -7,8 +7,9 @@ define("core/main",
     "core/settings",
     "core/services",
     "core/maps",
+    "core/shortcuts",
 ],
-function(router, settings, services, maps) {
+function(router, settings, services, maps, shortcuts) {
 
     router.init();
 
@@ -16,6 +17,7 @@ function(router, settings, services, maps) {
         settings: settings,
         services: services,
         maps: maps,
+        shortcuts: shortcuts,
 
         load: async function() {
             this.maps.load(await this.services.getCoordinates());

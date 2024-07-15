@@ -3,6 +3,13 @@ main {
     padding: 0 !important;
 }
 
+.flex {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 nav {
     height: 10vh;
     max-width: 95%;
@@ -54,6 +61,28 @@ nav button[disabled] {
 
 nav button[disabled] i {
     color: rgb(227, 227, 227);
+}
+
+nav #shortcuts-btn {
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+dialog > article {
+    max-height: 80vh;
+    min-height: 40vh;
+}
+
+dialog > article > header {
+    text-align: center;
+}
+
+dialog > article > div {
+    margin-bottom: 20px;
+}
+
+dialog div.flex > button {
+    max-width: 10vw;
 }
 
 [type="submit"],

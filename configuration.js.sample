@@ -21,12 +21,59 @@ self.configuration = {
     // Parameters:
     //      - $lat: latitude of the current position
     //      - $lng: longitude of the current position
-    quickLinks: {
-        twitterMedia: "https://twitter.com/search?q=geocode:$lat,$lng,1km&f=media",
-        marineTraffic: "https://www.marinetraffic.com/en/ais/home/centerx:$lat/centery:$lng/zoom:12",
-    },
+    shortcuts: [
+        {
+            name: "Twitter Media",
+            category: "📱 Social Media",
+            url: "https://twitter.com/search?q=geocode:$lat,$lng,1km&f=media",
+        },
+        {
+            name: "Youtube Geofind",
+            category: "📱 Social Media",
+            url: "https://mattw.io/youtube-geofind/location?location=$lat,$lng&radius=5&pages=3&doSearch=true",
+        },
+        {
+            name: "Flickr Map",
+            category: "📱 Social Media",
+            url: "https://www.flickr.com/map?&fLat=$lat&fLon=$lng3&zl=14",
+        },
+        {
+            name: "WikiLoc",
+            category: "📱 Social Media",
+            url: "https://www.wikiloc.com/wikiloc/map.do?sw=$lat,$lng",
+        },
+        {
+            name: "MarineTraffic",
+            category: "🛬 Transport",
+            url: "https://www.marinetraffic.com/en/ais/home/centerx:$lng/centery:$lat/zoom:13"
+        },
+        {
+            name: "FlightRadar",
+            category: "🛬 Transport",
+            url: "https://www.flightradar24.com/$lat,$lng/10"
+        },
+        {
+            name: "YandexMaps",
+            category: "🗺️ Maps",
+            url: "https://yandex.com/maps/?l=pht&ll=$lng,$lat&z=10"
+        },
+        {
+            name: "ShadeMap",
+            category: "🗺️ Maps",
+            url: "https://shademap.app/@$lat,$lng,10z,1721048871711t,0b,0p,0m"
+        },
+        {
+            name: "Ventusky",
+            category: "⛅ Weather",
+            url: "https://www.ventusky.com/$lat;$lng;11"
+        },
+        {
+            name: "NASA Wildfires",
+            category: "⛅ Weather",
+            url: "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@$lng,$lat,13.00z"
+        }
+    ],
     services: {
-        elevation: "https://api.open-elevation.com/api/v1/lookup?locations=$lat,$lng", // Powered by https://www.open-elevation.com/
         weather: "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lng&current=temperature_2m,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m"",  // Powered by https://open-meteo.com
         weather_historical: "https://archive-api.open-meteo.com/v1/archive?latitude=$lat&longitude=$lng", // Powered by https://open-meteo.com
     }

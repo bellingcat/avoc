@@ -26,6 +26,9 @@ if(setupCheck()) {
                 defaultCoords: { lat: 50.83934958273, lng: 4.341244544982925 },
                 language: self.configuration.language
             },
+            "core/shortcuts": {
+                shortcuts: self.configuration.shortcuts
+            },
             "core/router": {
                 allowedKeys: ["coords"]
             },
@@ -40,7 +43,7 @@ if(setupCheck()) {
             },
             "services/weather": {
                 endpoint: self.configuration.services.weather
-            }
+            },
         }
     });
 
