@@ -19,15 +19,6 @@ function(router, settings, services, maps) {
 
         load: async function() {
             this.maps.load(await this.services.getCoordinates());
-        },
-        jumpToCoordinates: function(c) {
-            if(typeof c != "string" || c == "") return;
-
-            const coords = c.split(",");
-            this.maps.screen1.map.setCenter({
-                lat: parseFloat(coords[0]),
-                lng: parseFloat(coords[1])
-            });
         }
     }
 });

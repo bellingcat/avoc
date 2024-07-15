@@ -63,5 +63,14 @@ define("core/maps", ["core/db", "core/router", "maps/google"], function(db, rout
                 db.set("Avoc.lastCoords", coords);
             });
         },
+        jumpTo: function(c) {
+            if(typeof c != "string" || c == "") return;
+
+            const coords = c.split(",");
+            this.screen1.map.setCenter({
+                lat: parseFloat(coords[0]),
+                lng: parseFloat(coords[1])
+            });
+        }
     }
 });
