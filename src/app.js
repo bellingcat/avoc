@@ -55,7 +55,7 @@ if(setupCheck()) {
         requirejs(["libs/alpine"]);
 
         (async () => {
-            await main.init();
+            await main.load();
         })();
     });
 } else {

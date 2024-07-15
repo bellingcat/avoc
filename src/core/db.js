@@ -1,6 +1,7 @@
 /**
  * Provides an interface with ImmortalDB
  */
+
 define("core/db", ["libs/immortal-db"], function(Immortal) {
     return {
         set: function(key, value) {
@@ -11,7 +12,7 @@ define("core/db", ["libs/immortal-db"], function(Immortal) {
         },
         get: async function(key, fallback = null) {
             const v = await Immortal.ImmortalDB.get(key, fallback);
-            return v.isJSON() ? JSON.parse(v) : v;
+            return v;
         },
         remove: function(key) {
             return ImmortalDB.remove(key);

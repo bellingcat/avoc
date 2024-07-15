@@ -16,7 +16,7 @@
                         <button disabled :data-tooltip="$store.translations.tooltipCountry" data-placement="bottom" data-ribbon-placement="left">
                             <i class="fa-solid fa-earth-europe"></i>
                         </button>
-                        <select name="country" x-on:change="app.setCoordinates($event.target.value)">
+                        <select name="country" x-on:change="app.jumpToCoordinates($event.target.value)">
                             <option selected value="" x-text="$store.translations.chooseCountry"></option>
                             <template x-for="country in $store.countries">
                                 <option x-text="country.name" :value="country.coords"></option>
