@@ -24,7 +24,7 @@ define("maps/google", ["module"], function(module) {
                 coords,
                 {
                     zoom: 18,
-                    minZoom: 18,
+                    minZoom: 14,
                     heading: heading,
                     zoomControl: false,
                     mapTypeControl: false,

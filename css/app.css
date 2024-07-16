@@ -2,4 +2,4 @@
 @import 'template.css';
 @import 'screens.css';
 @import 'compass.css';
-/*@import 'mapbox-gl.css';*/
+@import 'mapbox-gl.css';

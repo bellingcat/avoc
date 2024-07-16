@@ -11,8 +11,8 @@ self.configuration = {
     },
     // Specify which map provider to use in each section.
     maps: {
-        mainMap:   "google", // [required] possible values: google, mapbox
-        aerialMap: "google", // [required] possible values: google
+        mainMap:   "google", // [required] possible values: google, azure, mapbox
+        aerialMap: "google", // [required] possible values: google, azure, mapbox
         streetMap: "google", // [required] possible values: google
     },
     // Quick links are dinamically generated, and can be added freely.
@@ -67,7 +67,7 @@ self.configuration = {
         {
             name: "ShadeMap",
             category: "🗺️ Maps",
-            url: "https://shademap.app/@$lat,$lng,10z,1721048871711t,0b,0p,0m"
+            url: "https://shademap.app/@$lat,$lng,15z"
         },
         {
             name: "Ventusky",

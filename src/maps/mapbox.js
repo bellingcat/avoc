@@ -6,9 +6,10 @@ define("maps/mapbox", ["module", "libs/mapbox-gl"], function(module, mapboxgl) {
         initMap: function(id, coords, options = {}) {
             const map = new mapboxgl.Map({
                 container: id,
-                style: 'mapbox://styles/mapbox/streets-v12',
+                style: 'mapbox://styles/mapbox/satellite-streets-v12',
                 center: [coords.lng, coords.lat],
-                zoom: 16
+                zoom: 16,
+                ...options
             });
             map.addControl(new mapboxgl.FullscreenControl());
             map.addControl(new mapboxgl.NavigationControl({
@@ -17,18 +18,19 @@ define("maps/mapbox", ["module", "libs/mapbox-gl"], function(module, mapboxgl) {
 
             return map;
         },
-        init3DMap: function(id, coords, options = {}) {
-            const map = this.initMap(id, coords, options);
+        initAerialMap: function(id, coords, heading = 0, options = {}) {
+            const map = this.initMap(id, coords, {
+                pitch: 45,
+                bearing: heading,
+                ...options
+            });
+
             map.on('style.load', () => {
-                // Insert the layer beneath any symbol layer.
                 const layers = map.getStyle().layers;
                 const labelLayerId = layers.find(
                     (layer) => layer.type === 'symbol' && layer.layout['text-field']
                 ).id;
-        
-                // The 'building' layer in the Mapbox Streets
-                // vector tileset contains building height data
-                // from OpenStreetMap.
+
                 map.addLayer(
                     {
                         'id': 'add-3d-buildings',
@@ -39,10 +41,6 @@ define("maps/mapbox", ["module", "libs/mapbox-gl"], function(module, mapboxgl) {
                         'minzoom': 15,
                         'paint': {
                             'fill-extrusion-color': '#aaa',
-        
-                            // Use an 'interpolate' expression to
-                            // add a smooth transition effect to
-                            // the buildings as the user zooms in.
                             'fill-extrusion-height': [
                                 'interpolate',
                                 ['linear'],
@@ -61,27 +59,14 @@ define("maps/mapbox", ["module", "libs/mapbox-gl"], function(module, mapboxgl) {
                                 15.05,
                                 ['get', 'min_height']
                             ],
-                            'fill-extrusion-opacity': 0.6
+                            'fill-extrusion-opacity': 0.8
                         }
                     },
                     labelLayerId
                 );
             });
-        },
-        init3DMapTerrain: function(id, coords, options = {}) {
-            const map = this.initMap(id, coords, options);
-            map.on('style.load', () => {
-                map.addSource('mapbox-dem', {
-                    'type': 'raster-dem',
-                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                    'tileSize': 512,
-                    'maxzoom': 14
-                });
-                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
-            });
-        },
-        initAerialMap: async function(id, coords, heading = 0, options = {}) {
 
-        }
+            return map;
+        },
     }
 });

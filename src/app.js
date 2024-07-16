@@ -4,7 +4,7 @@
 const setupCheck = function() {
     return (self.configuration && (
         self.configuration.apiKeys.google != "" ||
-        self.configuration.apiKeys.bing != "" ||
+        self.configuration.apiKeys.azure != "" ||
         self.configuration.apiKeys.mapbox != ""
     ));
 }
@@ -32,11 +32,52 @@ if(setupCheck()) {
             "core/router": {
                 allowedKeys: ["coords"]
             },
+            "core/maps": {
+                screen1: {
+                    id: "screen1",
+                    provider: self.configuration.maps.mainMap,
+                    type: "main",
+                    heading: 0,
+                },
+                screen2: {
+                    id: "screen2",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 0,
+                },
+                screen3: {
+                    id: "screen3",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 90,
+                },
+                screen4: {
+                    id: "screen4",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 180,
+                },
+                screen5: {
+                    id: "screen5",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 270,
+                },
+                screen6: {
+                    id: "screen6",
+                    provider: self.configuration.maps.streetMap,
+                    type: "street",
+                    heading: 0,
+                },
+            },
             "maps/google": {
                 apiKey: self.configuration.apiKeys.google
             },
             "maps/mapbox": {
                 apiKey: self.configuration.apiKeys.mapbox
+            },
+            "maps/azure": {
+                apiKey: self.configuration.apiKeys.azure
             },
             "services/weather": {
                 endpoint: self.configuration.services.weather
