@@ -58,14 +58,6 @@ dialog[x-ref="weather"] article > button {
     font-size: 24px;
 }
 
-.atlas-map-canvas {
-    width: 100% !important;
-}
-
-.mapboxgl-canvas {
-    width: 100% !important;
-}
-
 /*
  * Extending Pico
  */

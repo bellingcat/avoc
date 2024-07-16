@@ -1,0 +1,10 @@
+@import 'maps/mapbox-gl.css';
+@import 'maps/atlas.css';
+
+.atlas-map-canvas {
+    width: 100% !important;
+}
+
+.mapboxgl-canvas {
+    width: 100% !important;
+}
