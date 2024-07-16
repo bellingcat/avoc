@@ -12,7 +12,7 @@ define("core/db", ["libs/immortal-db"], function(Immortal) {
         },
         get: async function(key, fallback = null) {
             const v = await Immortal.ImmortalDB.get(key, fallback);
-            return v;
+            return typeof v == "string" ? JSON.parse(v) : v;
         },
         remove: function(key) {
             return ImmortalDB.remove(key);
