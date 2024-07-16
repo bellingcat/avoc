@@ -16,7 +16,8 @@ define("services/translations", function () {
             cloudCover: "Cloud cover",
             windSpeed: "Wind speed",
             windDirection: "Wind direction",
-            weatherLabel: "WMO Label",
+            WMOcode: "Label from the World Meteorological Organization",
+            lastUpdate: "Last update"
         }
     }
 });

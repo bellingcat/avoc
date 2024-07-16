@@ -3,13 +3,6 @@ main {
     padding: 0 !important;
 }
 
-.flex {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
 nav {
     height: 10vh;
     max-width: 95%;
@@ -22,67 +15,54 @@ nav ul {
     align-items: center;
 }
 
-nav ol li,
-nav ul li {
-    height: 8vh;
+dialog article {
+    max-height: 80vh;
+    min-height: 40vh;
+    height: auto;
+    max-width: 90vw;
+    width: auto;
 }
 
-nav ol li span,
-nav ul li span {
-    font-size: 13px;
-    display: inherit;
-    margin-top: 2px;
+dialog header {
+    text-align: center;
 }
 
-nav fieldset {
-    margin-bottom: 0 !important;
+dialog[x-ref="shortcuts"] article > div {
+    margin-bottom: 20px;
 }
 
-nav fieldset input {
+dialog[x-ref="weather"] {
+    width: initial;
+}
+
+dialog[x-ref="weather"] article {
+    display: grid;
+    overflow: initial;
+}
+
+dialog[x-ref="weather"] article > button {
+    padding: 6px 0;
+    font-size: 24px;
+}
+
+dialog[x-ref="weather"] input {
     font-size: 14px;
     max-width: inherit;
     width: initial;
     text-align: center;
 }
 
-nav fieldset input.small {
-    width: 60px;
-}
-
-nav fieldset input.large {
-    width: 100px;
-}
-
-nav button[disabled] {
+dialog[x-ref="weather"] article button[disabled] {
     background-color: var(--pico-form-element-background-color);
     border: var(--pico-border-width) solid;
     border-color: var(--pico-form-element-border-color);
 }
 
-nav button[disabled] i {
-    color: rgb(227, 227, 227);
-}
-
-nav #shortcuts-btn {
-    color: whitesmoke;
-    font-size: 20px;
-}
-
-dialog > article {
-    max-height: 80vh;
-    min-height: 40vh;
-}
-
-dialog > article > header {
-    text-align: center;
-}
-
-dialog > article > div {
-    margin-bottom: 20px;
-}
-
-dialog div.flex > button {
-    max-width: 10vw;
+[role=flex] {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 [type="submit"],

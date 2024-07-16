@@ -12,54 +12,45 @@
         <nav>
             <ul>
                 <li>
-                    <fieldset role="group">
-                        <button disabled :data-tooltip="$store.translations.tooltipCountry" data-placement="bottom" data-ribbon-placement="left">
-                            🌐
-                        </button>
-                        <select name="country" x-on:change="app.maps.jumpTo($event.target.value)">
-                            <option selected value="" x-text="$store.translations.chooseCountry"></option>
-                            <template x-for="country in $store.countries">
-                                <option x-text="country.name" :value="country.coords"></option>
-                            </template>
-                        </select>
-                    </fieldset>
+                    <label><strong>Lock</strong></label>
                 </li>
                 <li>
-                    <fieldset role="group">
-                        <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
-                            ⛰️
-                        </button>
-                        <input class="small" type="text" x-model="$store.weather.elevation" disabled>
-                        <button disabled :data-tooltip="$store.translations.temperature" data-placement="bottom">
-                            🌡️
-                        </button>
-                        <input class="small" type="text" x-model="$store.weather.temperature" disabled>
-                        <button disabled :data-tooltip="$store.translations.precipitation" data-placement="bottom">
-                            💧
-                        </button>
-                        <input class="small" type="text" x-model="$store.weather.precipitation" disabled>
-                        <button disabled :data-tooltip="$store.translations.cloudCover" data-placement="bottom">
-                            ☁️
-                        </button>
-                        <input class="small" type="text" x-model="$store.weather.cloudCover" disabled>
-                        <button disabled :data-tooltip="$store.translations.windDirection" data-placement="bottom">
-                            🧭
-                        </button>
-                        <input class="small" type="text" x-model="$store.weather.windDirection" disabled>
-                        <button disabled :data-tooltip="$store.translations.windSpeed" data-placement="bottom">
-                            💨
-                        </button>
-                        <input class="large" type="text" x-model="$store.weather.windSpeed" disabled>
-                        <button x-on:click="$store.weather.refresh()" style="color: whitesmoke;padding: 0 9px 0 6px;font-size: 24px;">
-                            ⟲
-                        </button>
-                    </fieldset>
-                    <span x-html="$store.weather.label"></span>
+                    <label>
+                        Screen 2
+                        <input type="checkbox" role="switch" x-on:click="app.maps.screen2.lock = !app.maps.screen2.lock" />
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Screen 3
+                        <input type="checkbox" role="switch" x-on:click="app.maps.screen3.lock = !app.maps.screen3.lock" />
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Screen 4
+                        <input type="checkbox" role="switch" x-on:click="app.maps.screen4.lock = !app.maps.screen4.lock" />
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Screen 5
+                        <input type="checkbox" role="switch" x-on:click="app.maps.screen5.lock = !app.maps.screen5.lock" />
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Screen 6
+                        <input type="checkbox" role="switch" x-on:click="app.maps.screen6.lock = !app.maps.screen6.lock" />
+                    </label>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <button id="shortcuts-btn" x-on:click="$refs.shortcutsDialog.setAttribute('open', '')">☰</button>
+                    <button class="contrast" x-on:click="$refs.shortcuts.setAttribute('open', '')">🔗</button>
+                </li>
+                <li>
+                    <button class="contrast" x-on:click="$refs.weather.setAttribute('open', '')">☀️</button>
                 </li>
             </ul>
         </nav>
@@ -77,27 +68,88 @@
                 <div id="screen5"></div>
                 <div id="screen6"></div>
             </div>
-            <dialog x-ref="shortcutsDialog">
-                <article>
-                    <header>
-                        <button aria-label="Close" rel="prev" x-on:click="$refs.shortcutsDialog.removeAttribute('open')"></button>
-                        <p>
-                            <strong>Shortcuts</strong>
-                        </p>
-                    </header>
-                    <template x-for="category in app.shortcuts.getCategories()">
-                        <div>
-                            <h4 x-text="category"></h4>
-                            <div class="flex">
-                                <template x-for="link in app.shortcuts.getLinks(category)">
-                                    <button x-text="link.name" x-on:click="app.shortcuts.open(link.url)"></a>
-                                </template>
-                            </div>
-                        </div>
-                    </template>
-                </article>
-            </dialog>
         </main>
+        <dialog x-ref="shortcuts">
+            <article>
+                <header>
+                    <button aria-label="Close" rel="prev" x-on:click="$refs.shortcuts.removeAttribute('open')"></button>
+                    <p>
+                        <strong>Shortcuts</strong>
+                    </p>
+                </header>
+                <template x-for="category in app.shortcuts.getCategories()">
+                    <div>
+                        <h4 x-text="category"></h4>
+                        <div role="flex">
+                            <template x-for="link in app.shortcuts.getLinks(category)">
+                                <button class="contrast" x-text="link.name" x-on:click="app.shortcuts.open(link.url)"></a>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </article>
+        </dialog>
+        <dialog x-ref="weather">
+            <article>
+                <header>
+                    <button aria-label="Close" rel="prev" x-on:click="$refs.weather.removeAttribute('open')"></button>
+                    <p>
+                        <strong>Weather</strong>
+                    </p>
+                </header>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
+                        ⛰️
+                    </button>
+                    <input type="text" x-model="$store.weather.elevation" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.temperature" data-placement="bottom">
+                        🌡️
+                    </button>
+                    <input type="text" x-model="$store.weather.temperature" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.precipitation" data-placement="bottom">
+                        💧
+                    </button>
+                    <input type="text" x-model="$store.weather.precipitation" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.cloudCover" data-placement="bottom">
+                        ☁️
+                    </button>
+                    <input type="text" x-model="$store.weather.cloudCover" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.windDirection" data-placement="bottom">
+                        🧭
+                    </button>
+                    <input type="text" x-model="$store.weather.windDirection" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.windSpeed" data-placement="bottom">
+                        💨
+                    </button>
+                    <input type="text" x-model="$store.weather.windSpeed" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.WMOcode" data-placement="bottom">
+                        🏷️
+                    </button>
+                    <input type="text" x-model="$store.weather.WMOcode" disabled>
+                </fieldset>
+                <fieldset role="group">
+                    <button disabled :data-tooltip="$store.translations.lastUpdate" data-placement="bottom">
+                        🕒
+                    </button>
+                    <input type="text" x-model="$store.weather.lastUpdate" disabled>
+                </fieldset>
+                <button class="contrast" x-on:click="$store.weather.refresh()">
+                    ⟲
+                </button>
+            </article>
+        </dialog>
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.store('translations', app.services.getTranslation());
@@ -109,15 +161,17 @@
                     cloudCover: '--',
                     windSpeed: '--',
                     windDirection: '--',
-                    label: '',
+                    WMOcode: '',
+                    lastUpdate: '',
                     async refresh() {
                         const weather = await app.services.getCurrentWeather();
-                        this.temperature = weather.temperature_2m;
+                        this.temperature = weather.temperature2m;
                         this.precipitation = weather.precipitation;
-                        this.cloudCover = weather.cloud_cover;
-                        this.windSpeed = weather.wind_speed_10m;
-                        this.windDirection = weather.wind_direction_10m;
-                        this.label = weather.label;
+                        this.cloudCover = weather.cloudCover;
+                        this.windSpeed = weather.windSpeed10m;
+                        this.windDirection = weather.windDirection10m;
+                        this.WMOcode = weather.WMOcode;
+                        this.lastUpdate = weather.lastUpdate;
                         this.elevation = weather.elevation;
                     }
                 });
