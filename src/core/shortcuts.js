@@ -36,16 +36,21 @@ define("core/shortcuts", ["module", "core/router"], function(module, router) {
                         shortcuts[idx].category != category
                     )
                         continue;
+
+                    if(typeof shortcuts[idx].precision === "undefined")
+                        shortcuts[idx].precision = null;
                     
                     links.push(shortcuts[idx]);
                 }
 
                 return links;
             },
-            open: function(url) {
+            open: function(url, precision = null) {
                 const coords = router.getStateOf('coords');
-                url = url.replace("$lat", coords.lat);
-                url = url.replace("$lng", coords.lng);
+                url = url
+                    .replace("$lat", precision != null ? coords.lat.toFixed(precision) : coords.lat)
+                    .replace("$lng", precision != null ? coords.lng.toFixed(precision) : coords.lng);
+                
                 window.open(url, '_blank');
             }
         }

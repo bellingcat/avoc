@@ -82,7 +82,7 @@
                         <h4 x-text="category"></h4>
                         <div role="flex">
                             <template x-for="link in app.shortcuts.getLinks(category)">
-                                <button class="contrast" x-text="link.name" x-on:click="app.shortcuts.open(link.url)"></a>
+                                <button class="contrast" x-text="link.name" x-on:click="app.shortcuts.open(link.url, link.precision)"></a>
                             </template>
                         </div>
                     </div>
