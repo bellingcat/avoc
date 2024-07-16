@@ -40,22 +40,22 @@ dialog[x-ref="weather"] article {
     overflow: initial;
 }
 
-dialog[x-ref="weather"] article > button {
-    padding: 6px 0;
-    font-size: 24px;
-}
-
-dialog[x-ref="weather"] input {
+dialog[x-ref="weather"] article > fieldset > input {
     font-size: 14px;
     max-width: inherit;
     width: initial;
     text-align: center;
 }
 
-dialog[x-ref="weather"] article button[disabled] {
+dialog[x-ref="weather"] article > fieldset > button[disabled] {
     background-color: var(--pico-form-element-background-color);
     border: var(--pico-border-width) solid;
     border-color: var(--pico-form-element-border-color);
+}
+
+dialog[x-ref="weather"] article > button {
+    padding: 6px 0;
+    font-size: 24px;
 }
 
 [role=flex] {
