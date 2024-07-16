@@ -45,12 +45,19 @@ self.configuration = {
         {
             name: "MarineTraffic",
             category: "🛬 Transport",
-            url: "https://www.marinetraffic.com/en/ais/home/centerx:$lng/centery:$lat/zoom:13"
+            url: "https://www.marinetraffic.com/en/ais/home/centerx:$lng/centery:$lat/zoom:13",
+            precision: 3,
         },
         {
             name: "FlightRadar",
             category: "🛬 Transport",
-            url: "https://www.flightradar24.com/$lat,$lng/10"
+            url: "https://www.flightradar24.com/$lat,$lng/10",
+            precision: 2,
+        },
+        {
+            name: "OpenRailwayMap",
+            category: "🛬 Transport",
+            url: "https://www.openrailwaymap.org/?style=standard&lat=$lat&lon=$lng&zoom=14"
         },
         {
             name: "YandexMaps",
@@ -65,7 +72,8 @@ self.configuration = {
         {
             name: "Ventusky",
             category: "⛅ Weather",
-            url: "https://www.ventusky.com/$lat;$lng;11"
+            url: "https://www.ventusky.com/$lat;$lng;11",
+            precision: 3,
         },
         {
             name: "NASA Wildfires",
