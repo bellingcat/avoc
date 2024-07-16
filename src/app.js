@@ -38,9 +38,6 @@ if(setupCheck()) {
             "maps/mapbox": {
                 apiKey: self.configuration.apiKeys.mapbox
             },
-            "services/elevation": {
-                endpoint: self.configuration.services.elevation
-            },
             "services/weather": {
                 endpoint: self.configuration.services.weather
             },
