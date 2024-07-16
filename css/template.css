@@ -58,6 +58,14 @@ dialog[x-ref="weather"] article > button {
     font-size: 24px;
 }
 
+/*
+ * Extending Pico
+ */
+
+:root {
+    --pico-form-element-disabled-opacity: 1;
+}
+
 [role=flex] {
     display: inline-flex;
     flex-direction: row;
@@ -101,10 +109,6 @@ button[disabled][data-tooltip] {
 :where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled],
 :where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
     opacity: 1;
-}
-
-:root {
-    --pico-form-element-disabled-opacity: 1;
 }
 
 @media (min-width: 576px) {
