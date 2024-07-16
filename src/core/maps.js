@@ -131,6 +131,22 @@ define("core/maps", ["module", "core/db", "core/router", "maps/google", "maps/az
                         })
                     });
                     return true;
+
+                case screen.provider == this.MAPBOX:
+                    screen.map.on('dragend', () => {
+                        this.emitPositionChange({
+                            lat: screen.map.getCenter().lat,
+                            lng: screen.map.getCenter().lng,
+                        })
+                    });
+
+                    screen.map.on('moveend', () => {
+                        this.emitPositionChange({
+                            lat: screen.map.getCenter().lat,
+                            lng: screen.map.getCenter().lng,
+                        })
+                    });
+                    return true;
             }
         },
         emitPositionChange: function(coords) {
