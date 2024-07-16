@@ -153,7 +153,6 @@
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.store('translations', app.services.getTranslation());
-                Alpine.store('countries', app.services.getCountries());
                 Alpine.store('weather', {
                     elevation: '--',
                     temperature: '--',
