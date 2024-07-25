@@ -50,9 +50,9 @@ class OpenMeteo {
             elevation: data.elevation + "m",
             precipitation: data.current.precipitation + data.current_units.precipitation,
             cloudCover: data.current.cloud_cover + data.current_units.cloud_cover,
-            windSpeed10m: data.current.wind_speed_10m + data.current_units.wind_speed_10m,
-            windDirection10m: data.current.wind_direction_10m + data.current_units.wind_direction_10m,
-            temperature2m: data.current.temperature_2m + data.current_units.temperature_2m,
+            windSpeed: data.current.wind_speed_10m + data.current_units.wind_speed_10m,
+            windDirection: data.current.wind_direction_10m + data.current_units.wind_direction_10m,
+            temperature: data.current.temperature_2m + data.current_units.temperature_2m,
             label: this.labels[data.current.weather_code].name,
             lastUpdate: data.current.time + " " + data.timezone,
         };

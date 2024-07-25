@@ -98,52 +98,52 @@
                     </p>
                 </header>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.tooltipElevation" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.tooltipElevation" data-placement="bottom">
                         ⛰️
                     </button>
-                    <input type="text" x-model="$store.weather.elevation" disabled>
+                    <input type="text" x-model="$store.weather.data.elevation" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.temperature" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.temperature" data-placement="bottom">
                         🌡️
                     </button>
-                    <input type="text" x-model="$store.weather.temperature" disabled>
+                    <input type="text" x-model="$store.weather.data.temperature" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.precipitation" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.precipitation" data-placement="bottom">
                         💧
                     </button>
-                    <input type="text" x-model="$store.weather.precipitation" disabled>
+                    <input type="text" x-model="$store.weather.data.precipitation" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.cloudCover" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.cloudCover" data-placement="bottom">
                         ☁️
                     </button>
-                    <input type="text" x-model="$store.weather.cloudCover" disabled>
+                    <input type="text" x-model="$store.weather.data.cloudCover" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.windDirection" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.windDirection" data-placement="bottom">
                         🧭
                     </button>
-                    <input type="text" x-model="$store.weather.windDirection" disabled>
+                    <input type="text" x-model="$store.weather.data.windDirection" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.windSpeed" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.windSpeed" data-placement="bottom">
                         💨
                     </button>
-                    <input type="text" x-model="$store.weather.windSpeed" disabled>
+                    <input type="text" x-model="$store.weather.data.windSpeed" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.weatherLabel" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.weatherLabel" data-placement="bottom">
                         🏷️
                     </button>
-                    <input type="text" x-model="$store.weather.label" disabled>
+                    <input type="text" x-model="$store.weather.data.label" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.lastUpdate" data-placement="bottom">
+                    <button disabled :data-tooltip="app.translations.lastUpdate" data-placement="bottom">
                         🕒
                     </button>
-                    <input type="text" x-model="$store.weather.lastUpdate" disabled>
+                    <input type="text" x-model="$store.weather.data.lastUpdate" disabled>
                 </fieldset>
                 <button class="contrast" x-on:click="$store.weather.refresh()">
                     ⟲
@@ -152,26 +152,10 @@
         </dialog>
         <script>
             document.addEventListener('alpine:init', () => {
-                Alpine.store('translations', app.services.getTranslation());
                 Alpine.store('weather', {
-                    elevation: '--',
-                    temperature: '--',
-                    precipitation: '--',
-                    cloudCover: '--',
-                    windSpeed: '--',
-                    windDirection: '--',
-                    label: '',
-                    lastUpdate: '',
+                    data: {},
                     async refresh() {
-                        const weather = await app.services.getCurrentWeather();
-                        this.temperature = weather.temperature2m;
-                        this.precipitation = weather.precipitation;
-                        this.cloudCover = weather.cloudCover;
-                        this.windSpeed = weather.windSpeed10m;
-                        this.windDirection = weather.windDirection10m;
-                        this.label = weather.label;
-                        this.lastUpdate = weather.lastUpdate;
-                        this.elevation = weather.elevation;
+                        this.data = await app.services.getCurrentWeather();;
                     }
                 });
             });

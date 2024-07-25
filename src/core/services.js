@@ -5,20 +5,11 @@ class Services {
     /**
      * 
      * @param {Object} module 
-     * @param {Object} translations 
      * @param {OpenMeteo} weather 
      */
-    constructor(module, translations, weather) {
+    constructor(module, weather) {
         this.language = module.config().language;
-        this.translations = translations;
         this.weather = weather;
-    }
-
-    /**
-     * @returns {Object}
-     */
-    getTranslation() {
-        return this.translations[this.language];
     }
 
     /**
@@ -29,6 +20,6 @@ class Services {
     }
 }
 
-define("core/services", ["module", "services/translations", "services/weather"],  function() {
+define("core/services", ["module", "services/weather"],  function() {
     return new Services(...arguments);
 });

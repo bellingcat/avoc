@@ -3,12 +3,14 @@
  */
 define("core/main",
 [
+    "module",
     "core/router",
     "core/services",
     "core/maps",
     "core/shortcuts",
+    "core/translations",
 ],
-function(router, services, maps, shortcuts) {
+function(module, router, services, maps, shortcuts, translations) {
 
     (async () => {
         await router.init();
@@ -16,6 +18,7 @@ function(router, services, maps, shortcuts) {
     
     return {
         services: services,
+        translations: translations[module.config().language],
         maps: maps,
         shortcuts: shortcuts,
 

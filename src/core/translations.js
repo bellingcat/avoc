@@ -1,4 +1,4 @@
-define("services/translations", function () {
+define("core/translations", function () {
     return {
         en: {
             chooseCountry: "Choose country...",

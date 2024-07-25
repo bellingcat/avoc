@@ -23,7 +23,7 @@ if(setupCheck()) {
             types: "types",
         },
         config: {
-            "core/services": {
+            "core/main": {
                 language: self.configuration.language
             },
             "core/shortcuts": {
