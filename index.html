@@ -81,7 +81,7 @@
                     <div>
                         <h4 x-text="category"></h4>
                         <div role="flex">
-                            <template x-for="link in app.shortcuts.getLinks(category)">
+                            <template x-for="link in app.shortcuts.getLinksByCategory(category)">
                                 <button class="contrast" x-text="link.name" x-on:click="app.shortcuts.open(link.url, link.precision)"></a>
                             </template>
                         </div>
@@ -134,10 +134,10 @@
                     <input type="text" x-model="$store.weather.windSpeed" disabled>
                 </fieldset>
                 <fieldset role="group">
-                    <button disabled :data-tooltip="$store.translations.WMOcode" data-placement="bottom">
+                    <button disabled :data-tooltip="$store.translations.weatherLabel" data-placement="bottom">
                         🏷️
                     </button>
-                    <input type="text" x-model="$store.weather.WMOcode" disabled>
+                    <input type="text" x-model="$store.weather.label" disabled>
                 </fieldset>
                 <fieldset role="group">
                     <button disabled :data-tooltip="$store.translations.lastUpdate" data-placement="bottom">
@@ -160,7 +160,7 @@
                     cloudCover: '--',
                     windSpeed: '--',
                     windDirection: '--',
-                    WMOcode: '',
+                    label: '',
                     lastUpdate: '',
                     async refresh() {
                         const weather = await app.services.getCurrentWeather();
@@ -169,7 +169,7 @@
                         this.cloudCover = weather.cloudCover;
                         this.windSpeed = weather.windSpeed10m;
                         this.windDirection = weather.windDirection10m;
-                        this.WMOcode = weather.WMOcode;
+                        this.label = weather.label;
                         this.lastUpdate = weather.lastUpdate;
                         this.elevation = weather.elevation;
                     }

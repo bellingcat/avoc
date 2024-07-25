@@ -1,10 +1,3 @@
-/**
- * List of countries and coordinates of the respective capitals.
- * Helpful to provide fast navigation without relying on geolocation APIs,
- * which are notoriously expensive.
- * 
- * @TODO in the future, consider adding regions/major cities
- */
 define("services/translations", function () {
     return {
         en: {
@@ -16,7 +9,7 @@ define("services/translations", function () {
             cloudCover: "Cloud cover",
             windSpeed: "Wind speed",
             windDirection: "Wind direction",
-            WMOcode: "Label from the World Meteorological Organization",
+            weatherLabel: "Label from the World Meteorological Organization",
             lastUpdate: "Last update"
         }
     }

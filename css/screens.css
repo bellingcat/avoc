@@ -9,21 +9,6 @@ div.grid-area {
 
 div.grid-area > div { display: none; }
 
-#screen1::after {
-    content: ".";
-    position: absolute;
-    top: calc(50% - 8px);
-    left: calc(50% - 8px);
-    padding: 5px;
-    font-size: 0px;
-    width: 16px;
-    height: 16px;
-    border-radius: 16px;
-    border: 3px solid #F44336;
-    border-style: groove;
-    pointer-events: none;
-}
-
 /* 1 screen */
 div.grid-area[screens="1"] { grid-template-columns: 1fr; grid-template-rows: 1fr; }
 div.grid-area[screens="1"] > #screen1 { grid-area: 1 / 1 / 2 / 2; display: block; }
@@ -51,7 +36,7 @@ div.grid-area[screens="5"] > #screen3 { grid-area: 1 / 4 / 2 / 5; display: block
 div.grid-area[screens="5"] > #screen4 { grid-area: 2 / 3 / 3 / 4; display: block; }
 div.grid-area[screens="5"] > #screen5 { grid-area: 2 / 4 / 3 / 5; display: block; }
 
-/* 6 screens */
+/* 6 screens @default */
 div.grid-area[screens="6"] { grid-template-rows: repeat(3, 1fr); }
 div.grid-area[screens="6"] > #screen1 { grid-area: 1 / 1 / 4 / 3; display: block; }
 div.grid-area[screens="6"] > #screen2 { grid-area: 1 / 3 / 2 / 4; display: block; }
@@ -68,4 +53,20 @@ div.grid-area[screens="7"] > #screen3 { grid-area: 1 / 4 / 2 / 5; display: block
 div.grid-area[screens="7"] > #screen4 { grid-area: 2 / 3 / 3 / 4; display: block; }
 div.grid-area[screens="7"] > #screen5 { grid-area: 2 / 4 / 3 / 5; display: block; }
 div.grid-area[screens="7"] > #screen6 { grid-area: 3 / 3 / 4 / 4; display: block; }
-div.grid-area[screens="7"] > #screen7 { grid-area: 3 / 4 / 4 / 5; display: block; } 
+div.grid-area[screens="7"] > #screen7 { grid-area: 3 / 4 / 4 / 5; display: block; }
+
+/* Marker */
+#screen1::after {
+    content: ".";
+    position: absolute;
+    top: calc(50% - 8px);
+    left: calc(50% - 8px);
+    padding: 5px;
+    font-size: 0px;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border: 3px solid #F44336;
+    border-style: groove;
+    pointer-events: none;
+}

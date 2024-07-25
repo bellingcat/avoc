@@ -1,9 +1,11 @@
 /**
  * This module is responsible for the business logic of the app.
  */
-define("services/weather", ["module"], function (module) {
-    return {
-        WMOcodes: {
+class OpenMeteo {
+    constructor(module, router) {
+        this.router = router;
+        this.endpoint = module.config().endpoint;
+        this.labels = {
             0:  { name: "Sunny" },
             1:  { name: "Mainly Sunny" },
             2:  { name: "Partly Cloudy" },
@@ -32,25 +34,30 @@ define("services/weather", ["module"], function (module) {
             95: { name: "Thunderstorm" },
             96: { name: "Light Thunderstorms With Hail" },
             99: { name: "Thunderstorm With Hail" },
-        },
-        grab: async function(coords) {
-            const url = module.config().endpoint
-                .replace("$lat", coords.lat)
-                .replace("$lng", coords.lng);
+        };
+    }
+    
+    async grab() {
+        const coords = this.router.getCoordinates();
+        const url = this.endpoint
+            .replace("$lat", coords.lat)
+            .replace("$lng", coords.lng);
 
-            const response = await fetch(url);
-            const data = await response.json();
+        const response = await fetch(url);
+        const data = await response.json();
 
-            return {
-                elevation: data.elevation + "m",
-                precipitation: data.current.precipitation + data.current_units.precipitation,
-                cloudCover: data.current.cloud_cover + data.current_units.cloud_cover,
-                windSpeed10m: data.current.wind_speed_10m + data.current_units.wind_speed_10m,
-                windDirection10m: data.current.wind_direction_10m + data.current_units.wind_direction_10m,
-                temperature2m: data.current.temperature_2m + data.current_units.temperature_2m,
-                WMOcode: this.WMOcodes[data.current.weather_code].name,
-                lastUpdate: data.current.time + " " + data.timezone,
-            };
-        },
-    };
+        return {
+            elevation: data.elevation + "m",
+            precipitation: data.current.precipitation + data.current_units.precipitation,
+            cloudCover: data.current.cloud_cover + data.current_units.cloud_cover,
+            windSpeed10m: data.current.wind_speed_10m + data.current_units.wind_speed_10m,
+            windDirection10m: data.current.wind_direction_10m + data.current_units.wind_direction_10m,
+            temperature2m: data.current.temperature_2m + data.current_units.temperature_2m,
+            label: this.labels[data.current.weather_code].name,
+            lastUpdate: data.current.time + " " + data.timezone,
+        };
+    }
+}
+define("services/weather", ["module", "core/router"], function () {
+    return new OpenMeteo(...arguments);
 });

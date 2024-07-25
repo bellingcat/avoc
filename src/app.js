@@ -19,56 +19,19 @@ if(setupCheck()) {
             core: "core",
             libs: "libs",
             maps: "maps",
-            services: "services"
+            services: "services",
+            types: "types",
         },
         config: {
             "core/services": {
-                defaultCoords: { lat: 50.83934958273, lng: 4.341244544982925 },
                 language: self.configuration.language
             },
             "core/shortcuts": {
                 shortcuts: self.configuration.shortcuts
             },
             "core/router": {
-                allowedKeys: ["coords"]
-            },
-            "core/maps": {
-                screen1: {
-                    id: "screen1",
-                    provider: self.configuration.maps.mainMap,
-                    type: "main",
-                    heading: 0,
-                },
-                screen2: {
-                    id: "screen2",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 0,
-                },
-                screen3: {
-                    id: "screen3",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 90,
-                },
-                screen4: {
-                    id: "screen4",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 180,
-                },
-                screen5: {
-                    id: "screen5",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 270,
-                },
-                screen6: {
-                    id: "screen6",
-                    provider: self.configuration.maps.streetMap,
-                    type: "street",
-                    heading: 0,
-                },
+                allowedKeys: ["coords"],
+                defaultCoords: { lat: 50.8393, lng: 4.3412 },
             },
             "maps/google": {
                 apiKey: self.configuration.apiKeys.google
@@ -82,10 +45,48 @@ if(setupCheck()) {
             "services/weather": {
                 endpoint: self.configuration.services.weather
             },
+            "core/maps": [
+                {
+                    id: "screen1",
+                    provider: self.configuration.maps.mainMap,
+                    type: "main",
+                    heading: 0,
+                },
+                {
+                    id: "screen2",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 0,
+                },
+                {
+                    id: "screen3",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 90,
+                },
+                {
+                    id: "screen4",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 180,
+                },
+                {
+                    id: "screen5",
+                    provider: self.configuration.maps.aerialMap,
+                    type: "aerial",
+                    heading: 270,
+                },
+                {
+                    id: "screen6",
+                    provider: self.configuration.maps.streetMap,
+                    type: "street",
+                    heading: 0,
+                },
+            ],
         }
     });
 
-    requirejs(["libs/extends"]);
+    requirejs(["types/coords"]);
     
     /**
      * Launching the app
@@ -95,9 +96,7 @@ if(setupCheck()) {
         
         requirejs(["libs/alpine"]);
 
-        (async () => {
-            await main.load();
-        })();
+        main.load();
     });
 } else {
     alert("Please setup Avoc by visiting the configuration.js file");

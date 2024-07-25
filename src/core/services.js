@@ -1,21 +1,34 @@
 /**
  * Provides an interface with ImmortalDB
  */
-define("core/services",
-    ["module", "core/router", "core/db", "services/translations", "services/weather"], 
-    function(module, router, db, translations, weather) {
-        return {
-            getTranslation: function() {
-                return translations[module.config().language];
-            },
-            getCoordinates: async function() {
-                return router.hasStateOf("coords")
-                    ? router.getStateOf("coords")
-                    : await db.get("Avoc.lastCoords", module.config().defaultCoords);
-            },
-            getCurrentWeather: async function() {
-                const coords = await this.getCoordinates();
-                return await weather.grab(coords);
-            },
-        }
+class Services {
+    /**
+     * 
+     * @param {Object} module 
+     * @param {Object} translations 
+     * @param {OpenMeteo} weather 
+     */
+    constructor(module, translations, weather) {
+        this.language = module.config().language;
+        this.translations = translations;
+        this.weather = weather;
+    }
+
+    /**
+     * @returns {Object}
+     */
+    getTranslation() {
+        return this.translations[this.language];
+    }
+
+    /**
+     * @returns {Object}
+     */
+    async getCurrentWeather() {
+        return await this.weather.grab();
+    }
+}
+
+define("core/services", ["module", "services/translations", "services/weather"],  function() {
+    return new Services(...arguments);
 });
