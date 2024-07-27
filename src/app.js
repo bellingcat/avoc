@@ -1,9 +1,6 @@
 /**
  * Configuring RequireJS
  */
-const config = self.configuration;
-const screens = config.screens.slice(0,7);
-
 requirejs.config({
     baseUrl: "src",
     paths: {
@@ -14,27 +11,6 @@ requirejs.config({
         services: "services",
         sdkAzure: "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min",
         sdkMapbox: "https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl",
-    },
-    config: {
-        "core/router": {
-            allowedParams: ["coords"],
-            defaultCoords: { lat: 50.8393, lng: 4.3412 },
-        },
-        "core/maps": {
-            screens: screens,
-        },
-        "services/shortcuts": {
-            shortcuts: config.shortcuts
-        },
-        "maps/google": {
-            apiKey: config.apiKeys.google
-        },
-        "maps/mapbox": {
-            apiKey: config.apiKeys.mapbox
-        },
-        "maps/azure": {
-            apiKey: config.apiKeys.azure
-        },
     }
 });
 
@@ -42,6 +18,42 @@ requirejs.config({
  * Loading custom types
  */
 require(["types/coords"]);
+
+/**
+ * Loading configuration from file and session
+ */
+(async () => {
+    require(["core/configuration"], async function(configuration) {
+        return await configuration.load();
+    });
+})();
+
+/**
+ * Injecting configuration to modules
+ */
+requirejs.config({
+    config: {
+        "core/router": {
+            allowedParams: ["coords"],
+            defaultCoords: { lat: 50.8393, lng: 4.3412 },
+        },
+        "core/maps": {
+            screens: configuration.screens.slice(0,7),
+        },
+        "services/shortcuts": {
+            shortcuts: configuration.shortcuts
+        },
+        "maps/google": {
+            apiKey: configuration.apiKeys.google
+        },
+        "maps/mapbox": {
+            apiKey: configuration.apiKeys.mapbox
+        },
+        "maps/azure": {
+            apiKey: configuration.apiKeys.azure
+        },
+    }
+});
 
 /**
  * Launching the app
@@ -69,10 +81,10 @@ function(router, maps, services, translations) {
     })();
 
     document.addEventListener("alpine:init", () => {
-        Alpine.store("screensCount", screens.length)
+        Alpine.store("screensCount", maps.screens.length)
         Alpine.store("maps", maps);
         Alpine.store("shortcuts", services.getShortcuts());
-        Alpine.store("translations", translations.getLanguage(config.language));
+        Alpine.store("translations", translations.getLanguage(configuration.language));
         Alpine.store("weather", {
             data: {},
             async refresh() {
