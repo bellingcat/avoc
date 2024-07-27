@@ -3,27 +3,29 @@
  */
 class Router {
     /**
-     * @param {Object} module 
-     * @param {*} db
+     * @param {Object} module
+     * @param {Db} db
      */
     constructor(module, db) {
         this.DB_KEY = "Avoc.lastCoords";
 
         this.db = db;
-        this.allowedKeys = module.config().allowedKeys;
+        this.allowedParams = module.config().allowedParams;
         this.defaultCoords = module.config().defaultCoords;
         this.locationAddress = window.location.protocol + "//" + window.location.pathname;
     }
 
+    /**
+     * @async
+     */
     async init() {
-        const URLparams = new URLSearchParams(window.location.search);
-        if (URLparams.size > 0) {
+        const params = new URLSearchParams(window.location.search);
+        if(params.size > 0) {
             const data = {};
-            for (const [key, value] of URLparams.entries()) {
-                data[key] = this.isJSON(value)
-                    ? JSON.parse(value)
-                    : value;
+            for (const [k, v] of params.entries()) {
+                data[k] = this.isJSON(v) ? JSON.parse(v) : v;
             }
+
             this.pushState(data);
         }
 
@@ -43,13 +45,13 @@ class Router {
     }
 
     /**
-     * @param {Object} data 
+     * @param {Object} data
      */
     pushState(data) {
         const state = {};
         const params = [];
         Object.keys(data).forEach((key) => {
-            if (this.allowedKeys.indexOf(key) > -1) {
+            if (this.allowedParams.indexOf(key) > -1) {
                 params.push(this.parseURLParam(key, data[key]));
                 state[key] = data[key];
             }
@@ -80,7 +82,7 @@ class Router {
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     hasStateOf(key) {
         return history.state && history.state.hasOwnProperty(key);
@@ -88,7 +90,7 @@ class Router {
     
     /**
      * 
-     * @param {string} key 
+     * @param {String} key 
      * @param {*} val 
      * @returns 
      */
@@ -97,8 +99,8 @@ class Router {
     }
 
     /**
-     * @param {string} s 
-     * @returns {boolean}
+     * @param {String} s 
+     * @returns {Boolean}
      */
     isJSON(s) {
         if (/^\s*$/.test(s)) return false;

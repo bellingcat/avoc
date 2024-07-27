@@ -2,9 +2,12 @@
  * This module is responsible for the business logic of the app.
  */
 class OpenMeteo {
-    constructor(module, router) {
+    /**
+     * @param {Router} router 
+     */
+    constructor(router) {
         this.router = router;
-        this.endpoint = module.config().endpoint;
+        this.endpoint = "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lng&current=temperature_2m,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m";
         this.labels = {
             0:  { name: "Sunny" },
             1:  { name: "Mainly Sunny" },
@@ -37,7 +40,11 @@ class OpenMeteo {
         };
     }
     
-    async grab() {
+    /**
+     * @async
+     * @returns {Object}
+     */
+    async query() {
         const coords = this.router.getCoordinates();
         const url = this.endpoint
             .replace("$lat", coords.lat)
@@ -58,6 +65,7 @@ class OpenMeteo {
         };
     }
 }
-define("services/weather", ["module", "core/router"], function () {
+
+define("services/weather", ["core/router"], function () {
     return new OpenMeteo(...arguments);
 });

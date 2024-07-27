@@ -58,6 +58,6 @@ class Shortcuts {
     }
 }
 
-define("core/shortcuts", ["module", "core/router"], function() {
+define("services/shortcuts", ["module", "core/router"], function() {
     return new Shortcuts(...arguments);
 });

@@ -20,42 +20,42 @@ class MapScreen {
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isProviderGoogle() {
         return this.provider === this.PROVIDER_GOOGLE;
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isProviderAzure() {
         return this.provider === this.PROVIDER_AZURE;
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isProviderMapbox() {
         return this.provider === this.PROVIDER_MAPBOX;
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isTypeMain() {
         return this.type === this.TYPE_MAIN;
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isTypeAerial() {
         return this.type === this.TYPE_AERIAL;
     }
 
     /**
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     isTypeStreet() {
         return this.type === this.TYPE_STREET;
@@ -64,79 +64,71 @@ class MapScreen {
 
 class Maps {
     /**
-     * 
      * @param {Object} module
      * @param {Router} router
-     * @param {Object} google
-     * @param {Object} azure
-     * @param {Object} mapbox
+     * @param {Google} google
+     * @param {Azure} azure
+     * @param {Mapbox} mapbox
      */
     constructor(module, router, google, azure, mapbox) {
-        this.PROVIDER_GOOGLE = "google";
-        this.PROVIDER_AZURE = "azure";
-        this.PROVIDER_MAPBOX = "mapbox";
-
-        this.TYPE_MAIN = "main";
-        this.TYPE_AERIAL = "aerial";
-        this.TYPE_STREET = "street";
-
         this.router = router;
         this.google = google;
         this.azure = azure;
         this.mapbox = mapbox;
         this.screens = [];
 
-        for(const screenConfig of module.config()) {
+        for(const screenConfig of module.config().screens) {
             this.screens.push(new MapScreen(screenConfig));
         }
     }
 
     /**
-     * @param {Object} coords 
+     * @param {Coords} coords
      */
     async load(coords) {
-        for(screen of this.screens) {
-            await this.initScreen(screen, coords);  
-            if(screen.type == this.TYPE_MAIN) {
+        let idx = 0;
+        for(const screen of this.screens) {
+            await this.initScreen('screen' + idx++, screen, coords);
+
+            if(screen.isTypeMain()) {
                 this.setEventListener(screen);
             }
         }
     }
 
     /**
-     * 
-     * @param {MapScreen} screen 
-     * @param {Object} coords 
-     * @returns {boolean}
+     * @param {MapScreen} screen
+     * @param {Coords} coords
+     * @returns {Boolean}
      */
-    async initScreen(screen, coords) {
+    async initScreen(id, screen, coords) {
         switch (true) {
             case screen.isProviderGoogle() && screen.isTypeMain():
-                screen.map = await this.google.initMap(screen.id, coords);
+                screen.map = await this.google.loadMap(id, coords);
                 return true;
 
             case screen.isProviderGoogle() && screen.isTypeAerial():
-                screen.map = await this.google.initAerialMap(screen.id, coords, screen.heading);
+                screen.map = await this.google.loadAerialMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderGoogle() && screen.isTypeStreet():
-                screen.map = await this.google.initStreetView(screen.id, coords);
+                screen.map = await this.google.loadStreetView(id, coords);
                 return true;
 
             case screen.isProviderAzure() && screen.isTypeMain():
-                screen.map = this.azure.initMap(screen.id, coords);
+                screen.map = this.azure.loadMap(id, coords);
                 return true;
 
             case screen.isProviderAzure() && screen.isTypeAerial():
-                screen.map = this.azure.initAerialMap(screen.id, coords, screen.heading);
+                screen.map = this.azure.loadAerialMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderMapbox() && screen.isTypeMain():
-                screen.map = this.mapbox.initMap(screen.id, coords);
+                screen.map = this.mapbox.loadMap(id, coords);
                 return true;
 
             case screen.isProviderMapbox() && screen.isTypeAerial():
-                screen.map = this.mapbox.initAerialMap(screen.id, coords, screen.heading);
+                screen.map = this.mapbox.loadAerialMap(id, coords, screen.heading);
                 return true;
         }
 
@@ -144,50 +136,43 @@ class Maps {
     }
 
     /**
-     * @param {MapScreen} screen 
-     * @returns {boolean}
+     * @param {MapScreen} screen
+     * @returns {Boolean}
      */
     setEventListener(screen) {
         switch (true) {
             case screen.isProviderGoogle():
                 screen.map.addListener("center_changed", () => {
-                    this.emitPositionChange({
-                        lat: screen.map.getCenter().lat(),
-                        lng: screen.map.getCenter().lng(),
-                    });
+                    const coords = new Coords(screen.map.getCenter().lat(), screen.map.getCenter().lng());
+                    this.emitPositionChange(coords);
                 });
+
                 return true;
 
             case screen.isProviderAzure():
                 screen.map.events.add("dragend", () => {
-                    this.emitPositionChange({
-                        lat: screen.map.getCamera().center[1],
-                        lng: screen.map.getCamera().center[0],
-                    });
+                    const coords = new Coords(screen.map.getCamera().center[1], screen.map.getCamera().center[0]);
+                    this.emitPositionChange(coords);
                 });
 
                 screen.map.events.add("moveend", () => {
-                    this.emitPositionChange({
-                        lat: screen.map.getCamera().center[1],
-                        lng: screen.map.getCamera().center[0],
-                    });
+                    const coords = new Coords(screen.map.getCamera().center[1], screen.map.getCamera().center[0]);
+                    this.emitPositionChange(coords);
                 });
+
                 return true;
 
             case screen.isProviderMapbox():
                 screen.map.on("dragend", () => {
-                    this.emitPositionChange({
-                        lat: screen.map.getCenter().lat,
-                        lng: screen.map.getCenter().lng,
-                    });
+                    const coords = new Coords(screen.map.getCenter().lat, screen.map.getCenter().lng);
+                    this.emitPositionChange(coords);
                 });
 
                 screen.map.on("moveend", () => {
-                    this.emitPositionChange({
-                        lat: screen.map.getCenter().lat,
-                        lng: screen.map.getCenter().lng,
-                    });
+                    const coords = new Coords(screen.map.getCenter().lat, screen.map.getCenter().lng);
+                    this.emitPositionChange(coords);
                 });
+
                 return true;
         }
 
@@ -195,47 +180,50 @@ class Maps {
     }
 
     /**
-     * @param {Object} coords 
+     * @param {Coords} coords
      */
     emitPositionChange(coords) {
         for(screen of this.screens) {
-            if(screen.type != this.TYPE_MAIN) {
-                this.syncPosition(screen, coords);
-            }
+            if(!screen.isTypeMain()) this.syncPosition(screen, coords);
         }
 
         this.router.pushState({ coords: coords });
     }
 
     /**
-     * @param {MapScreen} screen 
-     * @param {Object} coords 
-     * @returns {boolean}
+     * @param {MapScreen} screen
+     * @param {Coords} coords
+     * @returns {Boolean}
      */
     syncPosition(screen, coords) {
         if (screen.lock === true) return true;
+
         switch (true) {
-            case screen.provider === this.PROVIDER_GOOGLE && screen.type === this.TYPE_AERIAL:
+            case screen.isProviderGoogle() && screen.isTypeAerial():
                 screen.map.setCenter(coords);
                 screen.map.setHeading(screen.heading);
                 return true;
 
-            case screen.provider === this.PROVIDER_GOOGLE && screen.type === this.TYPE_STREET:
+            case screen.isProviderGoogle() && screen.isTypeStreet():
                 screen.map.setPosition(coords);
                 return true;
 
-            case screen.provider === this.PROVIDER_AZURE:
+            case screen.isProviderAzure():
                 screen.map.setCamera({
-                    center: [coords.lng, coords.lat],
+                    center: coords.toLngLat(),
                 });
                 return true;
 
-            case screen.provider === this.PROVIDER_MAPBOX:
-                screen.map.setCenter([coords.lng, coords.lat]);
+            case screen.isProviderMapbox():
+                screen.map.setCenter(coords.toLngLat());
                 return true;
         }
 
         return false;
+    }
+
+    toggleScreen(index) {
+        this.screens[index].lock = !this.screens[index].lock;
     }
 
     /**
@@ -254,9 +242,6 @@ class Maps {
     }
 }
 
-define(
-    "core/maps",
-    ["module", "core/router", "maps/google", "maps/azure", "maps/mapbox"],
-    function () {
-        return new Maps(...arguments);
+define("core/maps", ["module", "core/router", "maps/google", "maps/azure", "maps/mapbox"], function () {
+    return new Maps(...arguments);
 });

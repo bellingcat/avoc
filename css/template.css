@@ -27,35 +27,35 @@ dialog header {
     text-align: center;
 }
 
-dialog[x-ref="shortcuts"] article > div {
+dialog[x-ref=shortcutsModal] article > div {
     margin-bottom: 20px;
 }
 
-dialog[x-ref="weather"] {
+dialog[x-ref=weatherModal] {
     width: initial;
 }
 
-dialog[x-ref="weather"] article {
+dialog[x-ref=weatherModal] article {
     display: grid;
     overflow: initial;
 }
 
-dialog[x-ref="weather"] article > fieldset > input {
+dialog[x-ref=weatherModal] article > button {
+    padding: 6px 0;
+    font-size: 24px;
+}
+
+dialog[x-ref=weatherModal] article > fieldset > input {
     font-size: 14px;
     max-width: inherit;
     width: initial;
     text-align: center;
 }
 
-dialog[x-ref="weather"] article > fieldset > button[disabled] {
+dialog[x-ref=weatherModal] article > fieldset > button[disabled] {
     background-color: var(--pico-form-element-background-color);
     border: var(--pico-border-width) solid;
     border-color: var(--pico-form-element-border-color);
-}
-
-dialog[x-ref="weather"] article > button {
-    padding: 6px 0;
-    font-size: 24px;
 }
 
 /*
@@ -73,9 +73,9 @@ dialog[x-ref="weather"] article > button {
     gap: 10px;
 }
 
-[type="submit"],
-[type="reset"],
-[type="button"] {
+[type=submit],
+[type=reset],
+[type=button] {
     margin-bottom: initial;
 }
 
@@ -84,30 +84,34 @@ button[disabled][data-tooltip] {
     pointer-events: auto;
 }
 
-[data-tooltip][data-ribbon-placement="left"]:focus::before,
-[data-tooltip][data-ribbon-placement="left"]:focus::after,
-[data-tooltip][data-ribbon-placement="left"]:hover::before,
-[data-tooltip][data-ribbon-placement="left"]:hover::after {
+[data-tooltip]:not(a, button, input) {
+    border-bottom: none;
+}
+
+[data-tooltip][data-ribbon-placement=left]:focus::before,
+[data-tooltip][data-ribbon-placement=left]:focus::after,
+[data-tooltip][data-ribbon-placement=left]:hover::before,
+[data-tooltip][data-ribbon-placement=left]:hover::after {
     --pico-tooltip-slide-to: translate(-10%, 0.25rem);
 }
 
-[data-tooltip][data-ribbon-placement="right"]:focus::before,
-[data-tooltip][data-ribbon-placement="right"]:focus::after,
-[data-tooltip][data-ribbon-placement="right"]:hover::before,
-[data-tooltip][data-ribbon-placement="right"]:hover::after {
+[data-tooltip][data-ribbon-placement=right]:focus::before,
+[data-tooltip][data-ribbon-placement=right]:focus::after,
+[data-tooltip][data-ribbon-placement=right]:hover::before,
+[data-tooltip][data-ribbon-placement=right]:hover::after {
     --pico-tooltip-slide-to: translate(-90%, 0.25rem);
 }
 
-[data-tooltip][data-placement="top"]::before,
-[data-tooltip][data-placement="top"]::after,
+[data-tooltip][data-placement=top]::before,
+[data-tooltip][data-placement=top]::after,
 [data-tooltip]::before,
 [data-tooltip]::after {
     padding: inherit 1rem;
     border: 1px solid #000;
 }
 
-:where(button, [type="submit"], [type="reset"], [type="button"], [role="button"])[disabled],
-:where(fieldset[disabled]) :is(button, [type="submit"], [type="button"], [type="reset"], [role="button"]) {
+:where(button, [type=submit], [type=reset], [type=button], [role=button])[disabled],
+:where(fieldset[disabled]) :is(button, [type=submit], [type=button], [type=reset], [role=button]) {
     opacity: 1;
 }
 

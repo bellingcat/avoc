@@ -1,103 +1,86 @@
 /**
- * Init
+ * Configuring RequireJS
  */
-const setupCheck = function() {
-    return (self.configuration && (
-        self.configuration.apiKeys.google != "" ||
-        self.configuration.apiKeys.azure != "" ||
-        self.configuration.apiKeys.mapbox != ""
-    ));
-}
+const config = self.configuration;
+const screens = config.screens.slice(0,7);
 
-if(setupCheck()) {
-    /**
-     * Configuring RequireJS
-     */
-    requirejs.config({
-        baseUrl: "src",
-        paths: {
-            core: "core",
-            libs: "libs",
-            maps: "maps",
-            services: "services",
-            types: "types",
+requirejs.config({
+    baseUrl: "src",
+    paths: {
+        core: "core",
+        libs: "libs",
+        maps: "maps",
+        types: "types",
+        services: "services",
+    },
+    config: {
+        "core/router": {
+            allowedParams: ["coords"],
+            defaultCoords: { lat: 50.8393, lng: 4.3412 },
         },
-        config: {
-            "core/main": {
-                language: self.configuration.language
-            },
-            "core/shortcuts": {
-                shortcuts: self.configuration.shortcuts
-            },
-            "core/router": {
-                allowedKeys: ["coords"],
-                defaultCoords: { lat: 50.8393, lng: 4.3412 },
-            },
-            "maps/google": {
-                apiKey: self.configuration.apiKeys.google
-            },
-            "maps/mapbox": {
-                apiKey: self.configuration.apiKeys.mapbox
-            },
-            "maps/azure": {
-                apiKey: self.configuration.apiKeys.azure
-            },
-            "services/weather": {
-                endpoint: self.configuration.services.weather
-            },
-            "core/maps": [
-                {
-                    id: "screen1",
-                    provider: self.configuration.maps.mainMap,
-                    type: "main",
-                    heading: 0,
-                },
-                {
-                    id: "screen2",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 0,
-                },
-                {
-                    id: "screen3",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 90,
-                },
-                {
-                    id: "screen4",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 180,
-                },
-                {
-                    id: "screen5",
-                    provider: self.configuration.maps.aerialMap,
-                    type: "aerial",
-                    heading: 270,
-                },
-                {
-                    id: "screen6",
-                    provider: self.configuration.maps.streetMap,
-                    type: "street",
-                    heading: 0,
-                },
-            ],
-        }
-    });
+        "core/maps": {
+            screens: screens,
+        },
+        "services/shortcuts": {
+            shortcuts: config.shortcuts
+        },
+        "maps/google": {
+            apiKey: config.apiKeys.google
+        },
+        "maps/mapbox": {
+            apiKey: config.apiKeys.mapbox
+        },
+        "maps/azure": {
+            apiKey: config.apiKeys.azure
+        },
+    }
+});
 
-    requirejs(["types/coords"]);
-    
+/**
+ * Loading custom types
+ */
+require(["types/coords"]);
+
+/**
+ * Launching the app
+ */
+require([
+    "core/router",
+    "core/maps",
+    "core/services",
+    "core/translations"
+],
+/**
+ * 
+ * @param {Router} router
+ * @param {Maps} maps
+ * @param {Services} services
+ * @param {Translations} translations
+ */
+function(router, maps, services, translations) {
+
     /**
-     * Launching the app
+     * Router has to fully initialize before we can move forward
      */
-    requirejs(["core/main"], function(main) {
-        self.app = main; // Workaround for Alpine's reference issue
-        
-        requirejs(["libs/alpine"]);
+    (async () => {
+        await router.init();
+    })();
 
-        main.load();
+    document.addEventListener("alpine:init", () => {
+        Alpine.store("screensCount", screens.length)
+        Alpine.store("maps", maps);
+        Alpine.store("shortcuts", services.getShortcuts());
+        Alpine.store("translations", translations.getLanguage(config.language));
+        Alpine.store("weather", {
+            data: {},
+            async refresh() {
+                this.data = await services.getWeather().query();
+            }
+        });
     });
-} else {
-    alert("Please setup Avoc by visiting the configuration.js file");
-}
+
+    /**
+     * Maps are loaded only after Alpine has been initialized
+     */
+    require(["libs/alpine"], () => maps.load(router.getCoordinates()));
+});

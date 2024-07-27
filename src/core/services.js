@@ -1,25 +1,31 @@
-/**
- * Provides an interface with ImmortalDB
- */
 class Services {
     /**
-     * 
-     * @param {Object} module 
-     * @param {OpenMeteo} weather 
+     * @param {OpenMeteo} weather
+     * @param {Shortcuts} shortcuts
      */
-    constructor(module, weather) {
-        this.language = module.config().language;
+    constructor(weather, shortcuts) {
         this.weather = weather;
+        this.shortcuts = shortcuts;
     }
 
     /**
-     * @returns {Object}
+     * @returns {OpenMeteo}
      */
-    async getCurrentWeather() {
-        return await this.weather.grab();
+    getWeather() {
+        return this.weather;
+    }
+
+    /**
+     * @returns {Shortcuts}
+     */
+    getShortcuts() {
+        return this.shortcuts;
     }
 }
 
-define("core/services", ["module", "services/weather"],  function() {
+define("core/services", [
+    "services/weather",
+    "services/shortcuts"
+],  function() {
     return new Services(...arguments);
 });

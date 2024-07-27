@@ -39,63 +39,63 @@ img[data-compass][data-rotation="360"] {
     transform: rotate(360deg);
 }
 
-img[data-compass][data-screen="1"] {
+img[data-compass][data-screen=0] {
     left: 0.4vw;
     top: 92.5vh;
 }
 
-img[data-compass][data-screen="2"] {
+img[data-compass][data-screen=1] {
     left: 72.5vw;
     top: 33.5vh;
 }
 
-img[data-compass][data-screen="3"] {
+img[data-compass][data-screen=2] {
     left: 97.5vw;
     top: 33.5vh;
 }
 
-img[data-compass][data-screen="4"] {
+img[data-compass][data-screen=3] {
     left: 72.5vw;
     top: 63.5vh;
 }
 
-img[data-compass][data-screen="5"] {
+img[data-compass][data-screen=4] {
     left: 97.5vw;
     top: 63.5vh;
 }
 
 @media only screen and (max-width: 1400px) {
-    img[data-compass][data-screen="2"],
-    img[data-compass][data-screen="4"] {
+    img[data-compass][data-screen=1],
+    img[data-compass][data-screen=3] {
         left: 71vw;
     }
     
-    img[data-compass][data-screen="3"],
-    img[data-compass][data-screen="5"] {
+    img[data-compass][data-screen=2],
+    img[data-compass][data-screen=4] {
         left: 96vw;
     }
 }
 
 @media only screen and (max-width: 1200px) {
-    img[data-compass][data-screen="2"],
-    img[data-compass][data-screen="4"] {
+    img[data-compass][data-screen=1],
+    img[data-compass][data-screen=3] {
         left: 70vw;
     }
     
-    img[data-compass][data-screen="3"],
-    img[data-compass][data-screen="5"] {
+    img[data-compass][data-screen=2],
+    img[data-compass][data-screen=4] {
         left: 95vw;
     }
 }
 
 @media only screen and (max-width: 992px) {
-    img[data-compass][data-screen="2"],
-    img[data-compass][data-screen="4"] {
+    img[data-compass][data-screen=1],
+    img[data-compass][data-screen=3] {
         left: 69vw;
     }
     
-    img[data-compass][data-screen="3"],
-    img[data-compass][data-screen="5"] {
+    img[data-compass][data-screen=2],
+    img[data-compass][data-screen=4] {
         left: 94vw;
     }
 }
@@ -107,17 +107,17 @@ img[data-compass][data-screen="5"] {
 }
 
 @media only screen and (max-height: 768px) {
-    img[data-compass][data-screen="1"] {
+    img[data-compass][data-screen=0] {
         top: 91vh;
     }
 
-    img[data-compass][data-screen="2"],
-    img[data-compass][data-screen="3"] {
+    img[data-compass][data-screen=1],
+    img[data-compass][data-screen=2] {
         top: 32vh;
     }
 
-    img[data-compass][data-screen="4"],
-    img[data-compass][data-screen="5"] {
+    img[data-compass][data-screen=3],
+    img[data-compass][data-screen=4] {
         top: 62vh;
     }
 }
