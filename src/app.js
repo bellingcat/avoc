@@ -12,6 +12,8 @@ requirejs.config({
         maps: "maps",
         types: "types",
         services: "services",
+        sdkAzure: "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min",
+        sdkMapbox: "https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl",
     },
     config: {
         "core/router": {

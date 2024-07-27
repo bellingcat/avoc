@@ -65,6 +65,6 @@ class Azure {
     }
 }
 
-define("maps/azure", ["module", "libs/atlas"], function() {
+define("maps/azure", ["module", "sdkAzure"], function() {
     return new Azure(...arguments);
 });
