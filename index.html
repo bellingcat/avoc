@@ -26,9 +26,16 @@
             </ul>
             <ul>
                 <li>
-                    <button class="contrast" x-on:click="$refs.shortcutsModal.setAttribute('open', '')">🔗</button>
+                    <fieldset role="group" style="align-items: center;margin-bottom: 0;">
+                        <input type="number" min="-90" max="90" x-ref="lat" placeholder="Latitude" />
+                        <input type="number" min="-180" max="180" x-ref="lng" placeholder="Longitude" />
+                        <input type="submit" class="contrast" value="Go to" x-on:click="$store.maps.jumpTo($refs.lat.value, $refs.lng.value)" />
+                    </fieldset>
                 </li>
+            </ul>
+            <ul>
                 <li>
+                    <button class="contrast" x-on:click="$refs.shortcutsModal.setAttribute('open', '')">🔗</button>
                     <button class="contrast" x-on:click="$refs.weatherModal.setAttribute('open', '')">☀️</button>
                 </li>
             </ul>

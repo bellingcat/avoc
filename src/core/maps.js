@@ -200,9 +200,9 @@ class Maps {
     /**
      * @param {Coords} coords
      */
-    emitPositionChange(coords) {
+    emitPositionChange(coords, force = false) {
         for(screen of this.screens) {
-            if(!screen.isTypeMain()) {
+            if(force || !screen.isTypeMain()) {
                 this.syncPosition(screen, coords);
             }
         }
@@ -220,7 +220,7 @@ class Maps {
 
         switch (true) {
             case screen.isProviderGoogle() && screen.isTypeAerial():
-                screen.map.setCenter(coords);
+                screen.map.setCenter({lat: coords.lat, lng: coords.lng });
                 screen.map.setHeading(screen.heading);
                 return true;
 
@@ -236,9 +236,24 @@ class Maps {
                 return true;
 
             case screen.isProviderBing() && screen.isTypeAerial():
+                const location = new Microsoft.Maps.Location(coords.lat, coords.lng);
+                Microsoft.Maps.getIsBirdseyeAvailable(location, Microsoft.Maps.Heading.north, function(isAvailable) {
+                    if(!isAvailable) {
+                        screen.map.setMapType(Microsoft.Maps.MapTypeId.aerial);
+                    } else {
+                        screen.map.setMapType(Microsoft.Maps.MapTypeId.birdseye);
+                    }
+                });
+
+                screen.map.setView({
+                    center: location
+                });
+                return true;
+
             case screen.isProviderBing() && screen.isTypeStreet():
                 screen.map.setView({
-                    center: new Microsoft.Maps.Location(coords.lat, coords.lng)
+                    center: new Microsoft.Maps.Location(coords.lat, coords.lng),
+                    mapTypeId: Microsoft.Maps.MapTypeId.streetside
                 });
                 return true;
 
@@ -255,18 +270,17 @@ class Maps {
     }
 
     /**
-     * @deprecated
-     * @param {*} c
-     * @returns
+     * @param {String} lat 
+     * @param {String} lng 
      */
-    jumpTo(c) {
-        if (typeof c !== "string" || c === "") return;
+    jumpTo(lat, lng) {
+        const latitude = new Number(lat);
+        const longitude = new Number(lng);
+        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
+            return alert('Wrong format');
 
-        const coords = c.split(",");
-        this.screen1.map.setCenter({
-            lat: parseFloat(coords[0]),
-            lng: parseFloat(coords[1]),
-        });
+        const coords = new Coords(new Number(lat), new Number(lng));
+        this.emitPositionChange(coords, true);
     }
 }
 

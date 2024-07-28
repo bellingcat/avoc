@@ -7,7 +7,6 @@ class Router {
      * @param {Db} db
      */
     constructor(module, db) {
-        console.log('constructed');
         this.DB_KEY = "Avoc.lastCoords";
 
         this.db = db;
