@@ -6,6 +6,7 @@ class MapScreen {
         this.PROVIDER_GOOGLE = "google";
         this.PROVIDER_AZURE = "azure";
         this.PROVIDER_MAPBOX = "mapbox";
+        this.PROVIDER_BING = "bing";
 
         this.TYPE_MAIN = "main";
         this.TYPE_AERIAL = "aerial";
@@ -38,6 +39,13 @@ class MapScreen {
      */
     isProviderMapbox() {
         return this.provider === this.PROVIDER_MAPBOX;
+    }
+
+    /**
+     * @returns {Boolean}
+     */
+    isProviderBing() {
+        return this.provider === this.PROVIDER_BING;
     }
 
     /**
@@ -125,7 +133,11 @@ class Maps {
                 screen.map = this.azure.loadAerialMap(id, coords, screen.heading);
                 return true;
 
-            case screen.isProviderAzure() && screen.isTypeStreet():
+            case screen.isProviderBing() && screen.isTypeAerial():
+                screen.map = this.bing.loadAerialMap(id, coords, screen.heading);
+                return true;
+
+            case screen.isProviderBing() && screen.isTypeStreet():
                 screen.map = this.bing.loadStreetView(id, coords, screen.heading);
                 return true;
 
@@ -215,18 +227,20 @@ class Maps {
                 return true;
 
             case screen.isProviderAzure() && screen.isTypeMain():
+            case screen.isProviderAzure() && screen.isTypeAerial():
                 screen.map.setCamera({
-                    center: coords.toLngLat(),
+                    center: coords.toLngLat()
                 });
                 return true;
 
+            case screen.isProviderBing() && screen.isTypeAerial():
             case screen.isProviderAzure() && screen.isTypeStreet():
                 screen.map.setView({
                     center: new Microsoft.Maps.Location(coords.lat, coords.lng)
                 });
                 return true;
 
-            case screen.isProviderMapbox():
+            case screen.isProviderMapbox() && screen.isTypeMain():
                 screen.map.setCenter(coords.toLngLat());
                 return true;
         }

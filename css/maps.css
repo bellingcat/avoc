@@ -4,3 +4,8 @@
 .mapboxgl-canvas {
     width: 100% !important;
 }
+
+#MicrosoftNav [role=button] {
+    border: none;
+    background-color: transparent;
+}
