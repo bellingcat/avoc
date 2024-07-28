@@ -9,9 +9,6 @@ requirejs.config({
         maps: "maps",
         types: "types",
         services: "services",
-        //sdkAzure: "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.js",
-        //sdkMapbox: ,
-        //sdkBing: "http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[YOUR_BING_MAPS_KEY]"
     }
 });
 
