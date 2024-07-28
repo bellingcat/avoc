@@ -60,14 +60,14 @@ class Google {
      * @param {Object} options
      * @returns
      */
-    async loadStreetView(id, coords, options = {}) {
+    async loadStreetView(id, coords, heading, options = {}) {
         const { StreetViewPanorama } = await google.maps.importLibrary("streetView");
         return new StreetViewPanorama(
             document.getElementById(id),
             {
                 position: coords,
                 pov: {
-                    heading: 0,
+                    heading: heading,
                     pitch: 0,
                 },
                 panControl: false,

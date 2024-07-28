@@ -65,6 +65,9 @@ class Azure {
     }
 }
 
-define("maps/azure", ["module", "sdkAzure"], function() {
+define("maps/azure", [
+    "module",
+    "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.js"
+], function() {
     return new Azure(...arguments);
 });

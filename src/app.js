@@ -9,8 +9,9 @@ requirejs.config({
         maps: "maps",
         types: "types",
         services: "services",
-        sdkAzure: "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min",
-        sdkMapbox: "https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl",
+        //sdkAzure: "https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.js",
+        //sdkMapbox: ,
+        //sdkBing: "http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[YOUR_BING_MAPS_KEY]"
     }
 });
 
@@ -52,6 +53,9 @@ requirejs.config({
         "maps/azure": {
             apiKey: configuration.apiKeys.azure
         },
+        "maps/bing": {
+            apiKey: configuration.apiKeys.azure
+        },
     }
 });
 
@@ -81,7 +85,6 @@ function(router, maps, services, translations) {
     })();
 
     document.addEventListener("alpine:init", () => {
-        Alpine.store("screensCount", maps.screens.length)
         Alpine.store("maps", maps);
         Alpine.store("shortcuts", services.getShortcuts());
         Alpine.store("translations", translations.getLanguage(configuration.language));

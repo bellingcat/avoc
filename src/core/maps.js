@@ -69,12 +69,14 @@ class Maps {
      * @param {Google} google
      * @param {Azure} azure
      * @param {Mapbox} mapbox
+     * @param {Bing} bing
      */
-    constructor(module, router, google, azure, mapbox) {
+    constructor(module, router, google, azure, mapbox, bing) {
         this.router = router;
         this.google = google;
         this.azure = azure;
         this.mapbox = mapbox;
+        this.bing = bing;
         this.screens = [];
 
         for(const screenConfig of module.config().screens) {
@@ -121,6 +123,10 @@ class Maps {
 
             case screen.isProviderAzure() && screen.isTypeAerial():
                 screen.map = this.azure.loadAerialMap(id, coords, screen.heading);
+                return true;
+
+            case screen.isProviderAzure() && screen.isTypeStreet():
+                screen.map = this.bing.loadStreetView(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderMapbox() && screen.isTypeMain():
@@ -208,9 +214,15 @@ class Maps {
                 screen.map.setPosition(coords);
                 return true;
 
-            case screen.isProviderAzure():
+            case screen.isProviderAzure() && screen.isTypeMain():
                 screen.map.setCamera({
                     center: coords.toLngLat(),
+                });
+                return true;
+
+            case screen.isProviderAzure() && screen.isTypeStreet():
+                screen.map.setView({
+                    center: new Microsoft.Maps.Location(coords.lat, coords.lng)
                 });
                 return true;
 
@@ -242,6 +254,6 @@ class Maps {
     }
 }
 
-define("core/maps", ["module", "core/router", "maps/google", "maps/azure", "maps/mapbox"], function () {
+define("core/maps", ["module", "core/router", "maps/google", "maps/azure", "maps/mapbox", "maps/bing"], function () {
     return new Maps(...arguments);
 });

@@ -89,6 +89,9 @@ class Mapbox {
     }
 }
 
-define("maps/mapbox", ["module", "sdkAzure"], function() {
+define("maps/mapbox", [
+    "module",
+    "https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"
+], function() {
     return new Mapbox(...arguments);
 });
