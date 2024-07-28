@@ -202,7 +202,9 @@ class Maps {
      */
     emitPositionChange(coords) {
         for(screen of this.screens) {
-            if(!screen.isTypeMain()) this.syncPosition(screen, coords);
+            if(!screen.isTypeMain()) {
+                this.syncPosition(screen, coords);
+            }
         }
 
         this.router.pushState({ coords: coords });
@@ -234,7 +236,7 @@ class Maps {
                 return true;
 
             case screen.isProviderBing() && screen.isTypeAerial():
-            case screen.isProviderAzure() && screen.isTypeStreet():
+            case screen.isProviderBing() && screen.isTypeStreet():
                 screen.map.setView({
                     center: new Microsoft.Maps.Location(coords.lat, coords.lng)
                 });

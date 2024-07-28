@@ -5,7 +5,11 @@
     width: 100% !important;
 }
 
-#MicrosoftNav [role=button] {
+.MicrosoftMap [role=button] {
     border: none;
     background-color: transparent;
+}
+
+.MicrosoftMap .birdseyeV2InfoExitControl {
+    display: none;
 }
