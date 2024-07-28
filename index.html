@@ -36,7 +36,7 @@
         <!-- End Header -->
         <!-- Maps -->
         <main>
-            <div class="grid-area" :screens="$store.screensCount">
+            <div class="grid-area" :screens="$store.maps.screens.length">
                 <div id="screen0"></div>
                 <div id="screen1"></div>
                 <div id="screen2"></div>
@@ -56,7 +56,7 @@
                 </header>
                 <template x-for="category in $store.shortcuts.getCategories()">
                     <div>
-                        <h5 x-text="category"></h4>
+                        <div><strong x-text="category"></strong></div>
                         <div role="flex">
                             <template x-for="link in $store.shortcuts.getLinksByCategory(category)">
                                 <button class="contrast" x-text="link.name" x-on:click="$store.shortcuts.open(link.url, link.precision)"></a>
