@@ -3,14 +3,9 @@ self.configuration = {
     // In order to use one of the providers, a valid API key must be provided.
     apiKeys: {
         google: "",
+        azure:  "",
         bing:   "",
         mapbox: "",
-    },
-    // Specify which map provider to use in each section.
-    maps: {
-        mainMap:   "google", // [required] possible values: google, azure, mapbox
-        aerialMap: "google", // [required] possible values: google, azure, mapbox
-        streetMap: "google", // [required] possible values: google
     },
     // Quick links are dinamically generated, and can be added freely.
     // Syntax:
@@ -69,7 +64,7 @@ self.configuration = {
         {
             name: "Ventusky",
             category: "⛅ Weather",
-            url: "https://www.ventusky.com/$lat;$lng;11",
+            url: "https://www.ventusky.com/?p=$lat;$lng;11",
             precision: 3,
         },
         {
@@ -78,8 +73,41 @@ self.configuration = {
             url: "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@$lng,$lat,13.00z"
         }
     ],
-    services: {
-        weather: "https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lng&current=temperature_2m,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m"",  // Powered by https://open-meteo.com
-        weather_historical: "https://archive-api.open-meteo.com/v1/archive?latitude=$lat&longitude=$lng", // Powered by https://open-meteo.com
-    }
+    screens: [
+        {
+            provider: "azure",
+            type: "main",
+            heading: 0,
+        },
+        {
+            provider: "google",
+            type: "aerial",
+            heading: 0,
+        },
+        {
+            provider: "bing",
+            type: "aerial",
+            heading: 90,
+        },
+        {
+            provider: "azure",
+            type: "aerial",
+            heading: 180,
+        },
+        {
+            provider: "google",
+            type: "aerial",
+            heading: 270,
+        },
+        {
+            provider: "bing",
+            type: "street",
+            heading: 0,
+        },
+        {
+            provider: "google",
+            type: "street",
+            heading: 0,
+        }
+    ]
 };

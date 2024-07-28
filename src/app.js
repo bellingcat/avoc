@@ -51,7 +51,7 @@ requirejs.config({
             apiKey: configuration.apiKeys.azure
         },
         "maps/bing": {
-            apiKey: configuration.apiKeys.azure
+            apiKey: configuration.apiKeys.bing
         },
     }
 });
