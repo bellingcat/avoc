@@ -2,40 +2,38 @@
  * Provides an interface with ImmortalDB
  */
 class Db {
-    constructor(Immortal) {
-        this.interface = Immortal.ImmortalDB;
-    }
-
     /**
-     * @param {String} key 
-     * @param {*} value 
-     * @returns 
+     * @param {String} key
+     * @param {*} value
      */
     set(key, value) {
-        return this.interface.set(
-            key,
-            typeof value != "string" ? JSON.stringify(value) : value
-        );
+        const data = typeof value != "string" ? JSON.stringify(value) : value;
+        sessionStorage.setItem(key, data);
+        localStorage.setItem(key, data);
     }
 
     /**
-     * @param {String} key 
-     * @param {*} fallback 
+     * @param {String} key
+     * @param {*} fallback
      * @returns {*}
      */
-    async get(key, fallback = null) {
-        const v = await this.interface.get(key, fallback);
-        return typeof v == "string" ? JSON.parse(v) : v;
+    get(key, fallback = null) {
+        let value = sessionStorage.getItem(key);
+        if(value === null || value === "undefined" || typeof value === "undefined") value = localStorage.getItem(key);
+        if(value === null || value === "undefined" || typeof value === "undefined") value = fallback;
+
+        return typeof value == "string" ? JSON.parse(value) : value;
     }
 
     /**
-     * @param {String} key 
-     * @returns 
+     * @param {String} key
      */
     remove(key) {
-        return this.interface.remove(key);
+        sessionStorage.removeItem(key);
+        localStorage.removeItem(key);
     }
 }
-define("core/db", ["libs/immortal-db"], function() {
-    return new Db(...arguments);
+
+define("core/db", function() {
+    return new Db();
 });

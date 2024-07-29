@@ -22,6 +22,7 @@ require(["types/coords"]);
  */
 (async () => {
     require(["core/configuration"], async function(configuration) {
+        // @TODO: add config check
         return await configuration.load();
     });
 })();
@@ -77,10 +78,11 @@ function(router, maps, services, translations) {
     /**
      * Router has to fully initialize before we can move forward
      */
-    (async () => {
-        await router.init();
-    })();
+    router.init();
 
+    /**
+     * Exposing modules to the frontend via Alpine
+     */
     document.addEventListener("alpine:init", () => {
         Alpine.store("maps", maps);
         Alpine.store("shortcuts", services.getShortcuts());

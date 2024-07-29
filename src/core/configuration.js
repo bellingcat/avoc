@@ -1,6 +1,5 @@
 class Configuration {
     /**
-     * 
      * @param {Object} module 
      * @param {Db} db 
      */
@@ -10,12 +9,11 @@ class Configuration {
     }
 
     /**
-     * @async
      * @returns {Object} 
      */
-    async load() {
+    load() {
         const fileSettings = this.module.config().configuration;
-        const dbSettings = await this.db.get("Avoc.settings", {});
+        const dbSettings = this.db.get("Avoc.settings", {});
         return {...fileSettings, ...dbSettings};
     }
 }
