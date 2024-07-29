@@ -1,5 +1,5 @@
-@import 'maps/mapbox-gl.css';
-@import 'maps/atlas.css';
+@import 'https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css';
+@import 'https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.css';
 
 .mapboxgl-canvas {
     width: 100% !important;
