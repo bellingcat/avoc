@@ -18,7 +18,7 @@ class Router {
     /**
      * @async
      */
-    async init() {
+    init() {
         const params = new URLSearchParams(window.location.search);
         if(params.size > 0) {
             const data = {};
@@ -30,9 +30,8 @@ class Router {
         }
 
         if(!this.hasStateOf("coords")) {
-            this.pushState(
-                await this.db.get(this.DB_KEY, this.defaultCoords)
-            );
+            const coords = this.db.get(this.DB_KEY, this.defaultCoords);
+            this.pushState({ coords: coords });
         }
     }
 
