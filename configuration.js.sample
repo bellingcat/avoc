@@ -76,27 +76,27 @@ self.configuration = {
     screens: [
         {
             provider: "azure",
-            type: "main",
+            type: "aerial",
             heading: 0,
         },
         {
             provider: "google",
-            type: "aerial",
+            type: "birdseye",
             heading: 0,
         },
         {
-            provider: "bing",
-            type: "aerial",
+            provider: "mapbox",
+            type: "birdseye",
             heading: 90,
         },
         {
-            provider: "azure",
-            type: "aerial",
+            provider: "google",
+            type: "birdseye",
             heading: 180,
         },
         {
-            provider: "google",
-            type: "aerial",
+            provider: "bing",
+            type: "birdseye",
             heading: 270,
         },
         {
