@@ -15,7 +15,7 @@ class Google {
      * @param {Object} options
      * @returns
      */
-    async loadMap(id, coords, options = {}) {
+    async loadAerialMap(id, coords, options = {}) {
         const { Map } = await google.maps.importLibrary("maps");
         return new Map(
             document.getElementById(id),
@@ -36,19 +36,23 @@ class Google {
      * @param {Object} options
      * @returns
      */
-    async loadAerialMap(id, coords, heading = 0, options = {}) {
-        return this.loadMap(
-            id,
-            coords,
+    async loadBirdseyeMap(id, coords, heading = 0, options = {}) {
+        const { Map } = await google.maps.importLibrary("maps");
+        return new Map(
+            document.getElementById(id),
             {
+                center: coords,
                 zoom: 18,
-                minZoom: 14,
+                tilt: 45,
+                mapTypeId: "satellite",
+                streetViewControl: false,
                 heading: heading,
                 zoomControl: false,
                 mapTypeControl: false,
-                scaleControl: false,
+                scaleControl: true,
                 rotateControl: false,
                 fullscreenControl: true,
+                headingInteractionEnabled: true,
                 ...options
             }
         );
@@ -60,7 +64,7 @@ class Google {
      * @param {Object} options
      * @returns
      */
-    async loadStreetView(id, coords, heading, options = {}) {
+    async loadStreetMap(id, coords, heading = 0, options = {}) {
         const { StreetViewPanorama } = await google.maps.importLibrary("streetView");
         return new StreetViewPanorama(
             document.getElementById(id),

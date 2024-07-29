@@ -14,7 +14,7 @@ class Mapbox {
      * @param {Object} options
      * @returns
      */
-    loadMap(id, coords, options = {}) {
+    loadAerialMap(id, coords, options = {}) {
         const map = new this.mapboxgl.Map({
             container: id,
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
@@ -37,8 +37,8 @@ class Mapbox {
      * @param {Object} options
      * @returns
      */
-    loadAerialMap(id, coords, heading = 0, options = {}) {
-        const map = this.loadMap(id, coords, {
+    loadBirdseyeMap(id, coords, heading = 0, options = {}) {
+        const map = this.loadAerialMap(id, coords, {
             pitch: 45,
             bearing: heading,
             ...options

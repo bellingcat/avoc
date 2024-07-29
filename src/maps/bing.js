@@ -4,7 +4,6 @@ class Bing {
      */
     constructor(module) {
         this.apiKey = module.config().apiKey;
-        require(["http://www.bing.com/api/maps/mapcontrol"]);
     }
 
     /**
@@ -13,7 +12,7 @@ class Bing {
      * @param {Object} options 
      * @returns
      */
-    loadAerialMap(id, coords, heading, options = {}) {
+    loadBirdseyeMap(id, coords, heading, options = {}) {
         Microsoft.Maps.GlobalConfig.dynamicProperties.sessionKey = this.apiKey;
         
         const location = new Microsoft.Maps.Location(coords.lat, coords.lng);
@@ -53,7 +52,7 @@ class Bing {
      * @param {Object} options 
      * @returns
      */
-    loadStreetView(id, coords, heading, options = {}) {
+    loadStreetMap(id, coords, heading, options = {}) {
         Microsoft.Maps.GlobalConfig.dynamicProperties.sessionKey = this.apiKey;
 
         const map = new Microsoft.Maps.Map(document.getElementById(id), {
@@ -81,6 +80,12 @@ class Bing {
     }
 }
 
-define("maps/bing", ["module"], function() {
+define("maps/bing", [
+    "module",
+    "http://www.bing.com/api/maps/mapcontrol"
+], function() {
+    // Workaround for a known Bing Maps V8 Web Control error
+    window.sj_evt = undefined;
+    
     return new Bing(...arguments);
 });

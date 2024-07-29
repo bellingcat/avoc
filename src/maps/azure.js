@@ -14,7 +14,7 @@ class Azure {
      * @param {Object} options
      * @returns
      */
-    loadMap(id, coords, options = {}) {
+    loadAerialMap(id, coords, options = {}) {
         const map = new this.atlas.Map(id, {
             center: coords.toLngLat(),
             zoom: 14,
@@ -45,12 +45,11 @@ class Azure {
      * @param {Object} options
      * @returns
      */
-    loadAerialMap(id, coords, heading = 0, options = {}) {
+    loadBirdseyeMap(id, coords, heading = 0, options = {}) {
         const map = new this.atlas.Map(id, {
             center: coords.toLngLat(),
             style: 'satellite',
             zoom: 16,
-            minZoom: 14,
             bearing: heading,
             pitch: 60,
             language: 'en-US',

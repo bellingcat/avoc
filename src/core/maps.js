@@ -8,15 +8,16 @@ class MapScreen {
         this.PROVIDER_MAPBOX = "mapbox";
         this.PROVIDER_BING = "bing";
 
-        this.TYPE_MAIN = "main";
         this.TYPE_AERIAL = "aerial";
         this.TYPE_STREET = "street";
+        this.TYPE_BIRDSEYE = "birdseye";
 
         this.id = config.id;
         this.type = config.type;
         this.provider = config.provider;
         this.heading = config.heading;
         this.lock = false;
+        this.primary = false;
         this.map = null;
     }
 
@@ -51,8 +52,8 @@ class MapScreen {
     /**
      * @returns {Boolean}
      */
-    isTypeMain() {
-        return this.type === this.TYPE_MAIN;
+    isTypeBirdsEye() {
+        return this.type === this.TYPE_BIRDSEYE;
     }
 
     /**
@@ -67,6 +68,13 @@ class MapScreen {
      */
     isTypeStreet() {
         return this.type === this.TYPE_STREET;
+    }
+
+    /**
+     * @returns {Boolean}
+     */
+    isPrimary() {
+        return this.primary === true;
     }
 }
 
@@ -98,11 +106,14 @@ class Maps {
     async load(coords) {
         let idx = 0;
         for(const screen of this.screens) {
-            await this.initScreen('screen' + idx++, screen, coords);
+            await this.initScreen('screen' + idx, screen, coords);
 
-            if(screen.isTypeMain()) {
+            // First screen is always the primary one
+            if(idx === 0) {
+                screen.primary = true;
                 this.setEventListener(screen);
             }
+            idx++;
         }
     }
 
@@ -113,40 +124,36 @@ class Maps {
      */
     async initScreen(id, screen, coords) {
         switch (true) {
-            case screen.isProviderGoogle() && screen.isTypeMain():
-                screen.map = await this.google.loadMap(id, coords);
+            case screen.isProviderGoogle() && screen.isTypeAerial():
+                screen.map = await this.google.loadAerialMap(id, coords);
                 return true;
 
-            case screen.isProviderGoogle() && screen.isTypeAerial():
-                screen.map = await this.google.loadAerialMap(id, coords, screen.heading);
+            case screen.isProviderGoogle() && screen.isTypeBirdsEye():
+                screen.map = await this.google.loadBirdseyeMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderGoogle() && screen.isTypeStreet():
-                screen.map = await this.google.loadStreetView(id, coords);
-                return true;
-
-            case screen.isProviderAzure() && screen.isTypeMain():
-                screen.map = this.azure.loadMap(id, coords);
+                screen.map = await this.google.loadStreetMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderAzure() && screen.isTypeAerial():
                 screen.map = this.azure.loadAerialMap(id, coords, screen.heading);
                 return true;
 
-            case screen.isProviderBing() && screen.isTypeAerial():
-                screen.map = this.bing.loadAerialMap(id, coords, screen.heading);
+            case screen.isProviderBing() && screen.isTypeBirdsEye():
+                screen.map = this.bing.loadBirdseyeMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderBing() && screen.isTypeStreet():
-                screen.map = this.bing.loadStreetView(id, coords, screen.heading);
-                return true;
-
-            case screen.isProviderMapbox() && screen.isTypeMain():
-                screen.map = this.mapbox.loadMap(id, coords);
+                screen.map = this.bing.loadStreetMap(id, coords, screen.heading);
                 return true;
 
             case screen.isProviderMapbox() && screen.isTypeAerial():
-                screen.map = this.mapbox.loadAerialMap(id, coords, screen.heading);
+                screen.map = this.mapbox.loadAerialMap(id, coords);
+                return true;
+
+            case screen.isProviderMapbox() && screen.isTypeBirdsEye():
+                screen.map = this.mapbox.loadBirdseyeMap(id, coords, screen.heading);
                 return true;
         }
 
@@ -202,7 +209,7 @@ class Maps {
      */
     emitPositionChange(coords, force = false) {
         for(screen of this.screens) {
-            if(force || !screen.isTypeMain()) {
+            if(force || !screen.isPrimary()) {
                 this.syncPosition(screen, coords);
             }
         }
@@ -221,21 +228,35 @@ class Maps {
         switch (true) {
             case screen.isProviderGoogle() && screen.isTypeAerial():
                 screen.map.setCenter({lat: coords.lat, lng: coords.lng });
-                screen.map.setHeading(screen.heading);
+                return true;
+
+            case screen.isProviderGoogle() && screen.isTypeBirdsEye():
+                screen.map.setCenter({lat: coords.lat, lng: coords.lng });
+                /**
+                 * Google's tilt, when unavailable, defaults back to aerial
+                 * which doesn't support heading. And we don't know
+                 * if the next setCenter will produce a tile that can be tilted.
+                 * Because consistency, yeah!
+                 */
+                setTimeout(() => {
+                    screen.map.setTilt(45);
+                    screen.map.setHeading(screen.heading);
+                }, 800);
                 return true;
 
             case screen.isProviderGoogle() && screen.isTypeStreet():
                 screen.map.setPosition(coords);
                 return true;
 
-            case screen.isProviderAzure() && screen.isTypeMain():
-            case screen.isProviderAzure() && screen.isTypeAerial():
+            case screen.isProviderGoogle() && screen.isTypeAerial():
+            case screen.isProviderAzure() && screen.isTypeBirdsEye():
                 screen.map.setCamera({
                     center: coords.toLngLat()
                 });
                 return true;
 
             case screen.isProviderBing() && screen.isTypeAerial():
+            case screen.isProviderBing() && screen.isTypeBirdsEye():
                 const location = new Microsoft.Maps.Location(coords.lat, coords.lng);
                 Microsoft.Maps.getIsBirdseyeAvailable(location, Microsoft.Maps.Heading.north, function(isAvailable) {
                     if(!isAvailable) {
@@ -257,7 +278,7 @@ class Maps {
                 });
                 return true;
 
-            case screen.isProviderMapbox() && screen.isTypeMain():
+            case screen.isProviderMapbox():
                 screen.map.setCenter(coords.toLngLat());
                 return true;
         }
@@ -265,6 +286,9 @@ class Maps {
         return false;
     }
 
+    /**
+     * @param {Number} index 
+     */
     toggleScreen(index) {
         this.screens[index].lock = !this.screens[index].lock;
     }
