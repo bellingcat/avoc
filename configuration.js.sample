@@ -1,18 +1,23 @@
 self.configuration = {
     language: "en",
-    // In order to use one of the providers, a valid API key must be provided.
+    /**
+     * In order to use one of the providers, a valid API key must be provided.
+     */
     apiKeys: {
         google: "",
         azure:  "",
         bing:   "",
         mapbox: "",
     },
-    // Quick links are dinamically generated, and can be added freely.
-    // Syntax:
-    //      https://website.tld/path/$lat,$lng
-    // Parameters:
-    //      - $lat: latitude of the current position
-    //      - $lng: longitude of the current position
+    /**
+     * Quick links are dinamically generated, and can be added freely.
+     * Syntax:
+     *     https://website.tld/path/$lat,$lng
+     * Parameters:
+     *     - $lat: latitude of the current position
+     *     - $lng: longitude of the current position
+     *     - precision: number of floating digits for $lat and $lng (optional)
+     */
     shortcuts: [
         {
             name: "Twitter Media",
@@ -73,6 +78,14 @@ self.configuration = {
             url: "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@$lng,$lat,13.00z"
         }
     ],
+    /**
+     * Screens can be changed and added freely, from 2 to 7 maximum.
+     * - provider: [google, azure, bing, mapbox]
+     * - type: [aerial, birdseye, street]
+     * - heading: 0 to 359 (optional)
+     *
+     * Go over to the README file to check which types are supported by each provider.
+     */
     screens: [
         {
             provider: "azure",
