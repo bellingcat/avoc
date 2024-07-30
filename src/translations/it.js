@@ -1,4 +1,4 @@
-define("translations/it", ["core/translations"], function(translations) {
+define("translations/it", function() {
     return {
         code: 'it',
         labels: {
@@ -14,6 +14,9 @@ define("translations/it", ["core/translations"], function(translations) {
             windDirection: "Direzione del vento",
             weatherLabel: "Classificazione della World Meteorological Organization",
             lastUpdate: "Ultimo aggiornamento",
+            longitude: "Longitudine",
+            latitude: "Latitudine",
+            goTo: "Vai",
         }
     }
 });
