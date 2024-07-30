@@ -25,7 +25,7 @@ Avoc is a GEOINT tool that combines multiple map providers and view modes in one
 Avoc operates as an orchestrator for map providers and views. It currently supports Google Maps, Azure Maps, Bing Maps, and Mapbox. For each provider one or multiple views 
 are available:
 
-| Provider      | Aerial View   | Birds' Eye View | Street View |
+| Provider      | Aerial View   | Bird's Eye View | Street View |
 | ------------- | ------------- | --------------- | ----------- |
 | Google Maps   | x             | x               | x           |
 | Azure Maps    | x             | x               |             |
