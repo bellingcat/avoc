@@ -227,11 +227,11 @@ class Maps {
 
         switch (true) {
             case screen.isProviderGoogle() && screen.isTypeAerial():
-                screen.map.setCenter({lat: coords.lat, lng: coords.lng });
+                screen.map.setCenter(coords);
                 return true;
 
             case screen.isProviderGoogle() && screen.isTypeBirdsEye():
-                screen.map.setCenter({lat: coords.lat, lng: coords.lng });
+                screen.map.setCenter(coords);
                 /**
                  * Google's tilt, when unavailable, defaults back to aerial
                  * which doesn't support heading. And we don't know
@@ -248,14 +248,13 @@ class Maps {
                 screen.map.setPosition(coords);
                 return true;
 
-            case screen.isProviderGoogle() && screen.isTypeAerial():
+            case screen.isProviderAzure() && screen.isTypeAerial():
             case screen.isProviderAzure() && screen.isTypeBirdsEye():
                 screen.map.setCamera({
                     center: coords.toLngLat()
                 });
                 return true;
 
-            case screen.isProviderBing() && screen.isTypeAerial():
             case screen.isProviderBing() && screen.isTypeBirdsEye():
                 const location = new Microsoft.Maps.Location(coords.lat, coords.lng);
                 Microsoft.Maps.getIsBirdseyeAvailable(location, Microsoft.Maps.Heading.north, function(isAvailable) {
@@ -298,12 +297,12 @@ class Maps {
      * @param {String} lng 
      */
     jumpTo(lat, lng) {
-        const latitude = new Number(lat);
-        const longitude = new Number(lng);
+        const latitude = parseFloat(lat);
+        const longitude = parseFloat(lng);
         if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
             return alert('Wrong format');
 
-        const coords = new Coords(new Number(lat), new Number(lng));
+        const coords = new Coords(latitude, longitude);
         this.emitPositionChange(coords, true);
     }
 }

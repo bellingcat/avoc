@@ -4,8 +4,8 @@ class Coords {
      * @param {Number} lng
      */
     constructor(lat, lng) {
-        this.lat = lat;
-        this.lng = lng;
+        this.lat = parseFloat(lat);
+        this.lng = parseFloat(lng);
 
         Coords.prototype.valueOf = function () {
             return {
