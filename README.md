@@ -1,6 +1,6 @@
 # Avoc
 
-Avoc is a GEOINT tool that combines multiple map providers and view modes in one single interface, equipped with a series of companion tools for scraping geotagged/georeferenced contents. No server, no package manager, no hard dependencies: just download and run.
+Avoc is a GEOINT tool that combines multiple map providers and view modes in one single interface, equipped with a series of companion tools for quickly accessing georeferenced resources. No server, no package manager, no bloating dependencies: just download and run.
 
 ## Download
 
