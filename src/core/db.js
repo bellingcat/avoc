@@ -1,6 +1,3 @@
-/**
- * Provides an interface with ImmortalDB
- */
 class Db {
     /**
      * @param {String} key

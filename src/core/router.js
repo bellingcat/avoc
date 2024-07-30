@@ -1,6 +1,3 @@
-/**
- * A quick and simple router.
- */
 class Router {
     /**
      * @param {Object} module

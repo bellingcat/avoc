@@ -4,7 +4,6 @@ class Translations {
     }
 
     /**
-     * 
      * @param {String} code 
      * @param {Object} translations 
      */
@@ -13,7 +12,6 @@ class Translations {
     }
 
     /**
-     * 
      * @param {String} code 
      * @returns {Object}
      */

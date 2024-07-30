@@ -1,6 +1,3 @@
-/**
- * This module is responsible for the business logic of the app.
- */
 class OpenMeteo {
     /**
      * @param {Router} router 
