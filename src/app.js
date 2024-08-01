@@ -15,7 +15,7 @@ requirejs.config({
 /**
  * Loading custom types
  */
-require(["types/coords"]);
+require(["types/coords", "types/language"]);
 
 /**
  * Loading configuration from file and session
