@@ -34,6 +34,7 @@ define("core/translations", [
     "translations/fr",
     "translations/es",
     "translations/de",
+    "translations/pl",
 ], function () {
     const translations = new Translations();
     

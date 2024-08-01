@@ -1,6 +1,6 @@
 self.configuration = {
     /**
-     * Available languages: en, fr, es, pt, it, de
+     * Available languages: en, fr, es, pt, it, de, pl
      */
     language: "en",
     /**
