@@ -70,6 +70,11 @@ self.configuration = {
             url: "https://shademap.app/@$lat,$lng,15z"
         },
         {
+            name: "EO Browser",
+            category: "🗺️ Maps",
+            url: "https://apps.sentinel-hub.com/eo-browser/?zoom=15&lat=$lat&lng=$lng"
+        },
+        {
             name: "Ventusky",
             category: "⛅ Weather",
             url: "https://www.ventusky.com/?p=$lat;$lng;11",
