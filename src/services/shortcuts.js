@@ -50,9 +50,12 @@ class Shortcuts {
      */
     open(url, precision = null) {
         const coords = this.router.getCoordinates();
+        const date = new Date();
         url = url
             .replace("$lat", precision != null ? coords.lat.toFixed(precision) : coords.lat)
-            .replace("$lng", precision != null ? coords.lng.toFixed(precision) : coords.lng);
+            .replace("$lng", precision != null ? coords.lng.toFixed(precision) : coords.lng)
+            .replace("$date", date.toISOString().split('T')[0].replaceAll('-', '.'))
+            .replace("$time", date.toTimeString().slice(0,5));
         
         window.open(url, '_blank');
     }

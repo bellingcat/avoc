@@ -70,6 +70,12 @@ self.configuration = {
             url: "https://shademap.app/@$lat,$lng,15z"
         },
         {
+            name: "SunCalc",
+            category: "🗺️ Maps",
+            url: "https://www.suncalc.org/#/$lat,$lng,15/$date/$time/1/1",
+            precision: 4,
+        },     
+        {
             name: "EO Browser",
             category: "🗺️ Maps",
             url: "https://apps.sentinel-hub.com/eo-browser/?zoom=15&lat=$lat&lng=$lng"
