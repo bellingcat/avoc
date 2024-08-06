@@ -12,7 +12,7 @@
         <!-- Header -->
         <nav>
             <ul>
-                <li :data-tooltip="$store.translations.lockScreenTooltip" data-placement="bottom">
+                <li :data-tooltip="$store.translations.lockScreenTooltip" data-placement="right">
                     <label>🔒 <strong x-text="$store.translations.lockScreen"></strong></label>
                 </li>
                 <template x-for="(screen, index) in $store.maps.screens">
@@ -35,8 +35,9 @@
             </ul>
             <ul>
                 <li>
-                    <button class="contrast" x-on:click="$refs.shortcutsModal.setAttribute('open', '')">🔗</button>
-                    <button class="contrast" x-on:click="$refs.weatherModal.setAttribute('open', '')">☀️</button>
+                    <button class="contrast" x-on:click="$store.copy" :data-tooltip="$store.translations.copyButton" data-placement="left">📋</button>
+                    <button class="contrast" x-on:click="$refs.shortcutsModal.setAttribute('open', '')" :data-tooltip="$store.translations.shortcutsButton" data-placement="left">🔗</button>
+                    <button class="contrast" x-on:click="$refs.weatherModal.setAttribute('open', '')" :data-tooltip="$store.translations.weatherButton" data-placement="left">☀️</button>
                 </li>
             </ul>
         </nav>

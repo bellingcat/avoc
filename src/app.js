@@ -93,6 +93,10 @@ function(router, maps, services, translations) {
                 this.data = await services.getWeather().query();
             }
         });
+        Alpine.store("copy", async () => {
+            if(navigator.clipboard)
+                await navigator.clipboard.writeText(router.getCoordinates().toString());
+        });
     });
 
     /**
