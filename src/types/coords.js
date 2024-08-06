@@ -28,4 +28,11 @@ class Coords {
     toLngLat() {
         return [ this.lng, this.lat ];
     }
+
+    /**
+     * @returns {String}
+     */
+    toString() {
+        return `${this.lat},${this.lng}`;
+    }
 }

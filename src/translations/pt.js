@@ -15,5 +15,8 @@ define("translations/pt", function() {
         longitude: "Longitude",
         latitude: "Latitude",
         goTo: "Ir para",
+        copyButton: "Copiar as coordenadas atuais",
+        shortcutsButton: "Abrir a janela de atalhos",
+        weatherButton: "Abrir a janela do clima",
     });
 });

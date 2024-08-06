@@ -15,5 +15,8 @@ define("translations/de", function() {
         longitude: "Längengrad",
         latitude: "Breitengrad",
         goTo: "Gehe zu",
+        copyButton: "Kopiere die aktuellen Koordinaten",
+        shortcutsButton: "Öffne das Shortcuts-Fenster",
+        weatherButton: "Öffne das Wetter-Fenster",
     });
 });

@@ -15,5 +15,8 @@ define("translations/pl", function() {
         longitude: "Długość",
         latitude: "Szerokość",
         goTo: "Idź do",
+        copyButton: "Skopiuj bieżące współrzędne",
+        shortcutsButton: "Otwórz okno skrótów",
+        weatherButton: "Otwórz okno pogodowe",
     });
 });
