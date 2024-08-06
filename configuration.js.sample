@@ -75,6 +75,11 @@ self.configuration = {
             url: "https://apps.sentinel-hub.com/eo-browser/?zoom=15&lat=$lat&lng=$lng"
         },
         {
+            name: "Wigle",
+            category: "🗺️ Maps",
+            url: "https://wigle.net/map?maplat=$lat&maplon=$lng&mapzoom=17"
+        },
+        {
             name: "Ventusky",
             category: "⛅ Weather",
             url: "https://www.ventusky.com/?p=$lat;$lng;11",
