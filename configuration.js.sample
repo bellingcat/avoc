@@ -60,6 +60,11 @@ self.configuration = {
             url: "https://www.openrailwaymap.org/?style=standard&lat=$lat&lon=$lng&zoom=14"
         },
         {
+            name: "Apple Maps",
+            category: "🗺️ Maps",
+            url: "https://beta.maps.apple.com/?ll=$lat%2C$lng&q=%20&t=k"
+        },
+        {
             name: "YandexMaps",
             category: "🗺️ Maps",
             url: "https://yandex.com/maps/?l=pht&ll=$lng,$lat&z=10"
@@ -79,6 +84,11 @@ self.configuration = {
             name: "EO Browser",
             category: "🗺️ Maps",
             url: "https://apps.sentinel-hub.com/eo-browser/?zoom=15&lat=$lat&lng=$lng"
+        },
+        {
+            name: "Wigle",
+            category: "🗺️ Maps",
+            url: "https://wigle.net/map?maplat=$lat&maplon=$lng&mapzoom=17"
         },
         {
             name: "Ventusky",
