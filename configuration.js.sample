@@ -65,6 +65,11 @@ self.configuration = {
             url: "https://beta.maps.apple.com/?ll=$lat%2C$lng&q=%20&t=k"
         },
         {
+            name: "Apple Look Around",
+            category: "🗺️ Maps",
+            url: "https://lookmap.eu.pythonanywhere.com/#c=19/$lat/$lng"
+        },
+        {
             name: "YandexMaps",
             category: "🗺️ Maps",
             url: "https://yandex.com/maps/?l=pht&ll=$lng,$lat&z=10"
