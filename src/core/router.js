@@ -9,7 +9,7 @@ class Router {
         this.db = db;
         this.allowedParams = module.config().allowedParams;
         this.defaultCoords = module.config().defaultCoords;
-        this.locationAddress = window.location.protocol + "//" + window.location.pathname;
+        this.locationAddress = window.location.origin == "null" ? "" : window.location.origin + window.location.pathname;
     }
 
     /**
