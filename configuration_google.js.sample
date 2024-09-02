@@ -1,0 +1,105 @@
+self.configuration = {
+  language: "en",
+  // In order to use one of the providers, a valid API key must be provided.
+  apiKeys: {
+    google: "GOOGLE_MAPS_API_KEY",
+  },
+  // Quick links are dynamically generated, and can be added freely.
+  // Syntax:
+  //      https://website.tld/path/$lat,$lng
+  // Parameters:
+  //      - $lat: latitude of the current position
+  //      - $lng: longitude of the current position
+  shortcuts: [
+    {
+      name: "Twitter Media",
+      category: "📱 Social Media",
+      url: "https://twitter.com/search?q=geocode:$lat,$lng,1km&f=media",
+    },
+    {
+      name: "Youtube Geofind",
+      category: "📱 Social Media",
+      url: "https://mattw.io/youtube-geofind/location?location=$lat,$lng&radius=5&pages=3&doSearch=true",
+    },
+    {
+      name: "Flickr Map",
+      category: "📱 Social Media",
+      url: "https://www.flickr.com/map?&fLat=$lat&fLon=$lng3&zl=14",
+    },
+    {
+      name: "WikiLoc",
+      category: "📱 Social Media",
+      url: "https://www.wikiloc.com/wikiloc/map.do?sw=$lat,$lng",
+    },
+    {
+      name: "MarineTraffic",
+      category: "🛬 Transport",
+      url: "https://www.marinetraffic.com/en/ais/home/centerx:$lng/centery:$lat/zoom:13",
+      precision: 3,
+    },
+    {
+      name: "FlightRadar",
+      category: "🛬 Transport",
+      url: "https://www.flightradar24.com/$lat,$lng/10",
+      precision: 2,
+    },
+    {
+      name: "OpenRailwayMap",
+      category: "🛬 Transport",
+      url: "https://www.openrailwaymap.org/?style=standard&lat=$lat&lon=$lng&zoom=14",
+    },
+    {
+      name: "YandexMaps",
+      category: "🗺️ Maps",
+      url: "https://yandex.com/maps/?l=pht&ll=$lng,$lat&z=10",
+    },
+    {
+      name: "ShadeMap",
+      category: "🗺️ Maps",
+      url: "https://shademap.app/@$lat,$lng,15z",
+    },
+    {
+      name: "Ventusky",
+      category: "⛅ Weather",
+      url: "https://www.ventusky.com/?p=$lat;$lng;11",
+      precision: 3,
+    },
+    {
+      name: "NASA Wildfires",
+      category: "⛅ Weather",
+      url: "https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@$lng,$lat,13.00z",
+    },
+  ],
+  screens: [
+    {
+      provider: "google",
+      type: "aerial",
+      heading: 0,
+    },
+    {
+      provider: "google",
+      type: "birdseye",
+      heading: 0,
+    },
+    {
+      provider: "google",
+      type: "birdseye",
+      heading: 90,
+    },
+    {
+      provider: "google",
+      type: "birdseye",
+      heading: 180,
+    },
+    {
+      provider: "google",
+      type: "birdseye",
+      heading: 270,
+    },
+    {
+      provider: "google",
+      type: "street",
+      heading: 0,
+    },
+  ],
+};
