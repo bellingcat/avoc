@@ -97,6 +97,11 @@ self.configuration = {
             url: "https://wigle.net/map?maplat=$lat&maplon=$lng&mapzoom=17"
         },
         {
+            name: "Apple Look Around",
+            category: "🛣️ Street View",
+            url: "https://lookmap.eu.pythonanywhere.com/#c=19/$lat/$lng"
+        },
+        {
             name: "Liveuamap - Ukraine",
             category: "📰 Liveuamap",
             url: "https://liveuamap.com/?zoom=10&ll=$lat,$lng"
