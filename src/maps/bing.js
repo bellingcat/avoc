@@ -82,7 +82,7 @@ class Bing {
 
 define("maps/bing", [
     "module",
-    "http://www.bing.com/api/maps/mapcontrol"
+    "https://www.bing.com/api/maps/mapcontrol"
 ], function() {
     // Workaround for a known Bing Maps V8 Web Control error
     window.sj_evt = undefined;
