@@ -27,8 +27,8 @@
             <ul>
                 <li>
                     <fieldset role="group" style="align-items: center;margin-bottom: 0;">
-                        <input type="number" min="-90" max="90" x-ref="lat" :placeholder="$store.translations.latitude" />
-                        <input type="number" min="-180" max="180" x-ref="lng" :placeholder="$store.translations.longitude" />
+                        <input type="number" min="-90" max="90" x-ref="lat" :placeholder="$store.translations.latitude" style="width: 200px; margin-right: 10px;" />
+                        <input type="number" min="-180" max="180" x-ref="lng" :placeholder="$store.translations.longitude" style="width: 200px;"/>
                         <input type="submit" class="contrast" :value="$store.translations.goTo" x-on:click="$store.maps.jumpTo($refs.lat.value, $refs.lng.value)" />
                     </fieldset>
                 </li>
